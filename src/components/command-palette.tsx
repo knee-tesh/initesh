@@ -42,6 +42,7 @@ export default function CommandPalette({
       navigator.clipboard.writeText(email);
       onClose();
     }},
+    { id: "admin", label: "Admin Dashboard", action: () => router.push("/admin") },
   ];
 
   const close = useCallback(() => {
