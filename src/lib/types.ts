@@ -47,3 +47,36 @@ export interface Process {
   href: string;
   status: 'running' | 'idle' | 'sleeping';
 }
+
+export interface Visitor {
+  id: string;
+  timestamp: string;
+  page: string;
+  ipHash: string;
+  country?: string;
+  city?: string;
+  userAgent?: string;
+  referrer?: string;
+}
+
+export interface Query {
+  id: string;
+  timestamp: string;
+  name: string;
+  email: string;
+  message: string;
+  status: 'new' | 'read' | 'replied';
+}
+
+export interface AdminSession {
+  token: string;
+  expiresAt: number;
+}
+
+export interface VisitorStats {
+  totalVisits: number;
+  uniqueVisitors: number;
+  todayVisits: number;
+  weekVisits: number;
+  topPages: { page: string; visits: number; percentage: number }[];
+}
