@@ -1,0 +1,26 @@
+{
+  "narrative": [
+    "Principal Fullstack Developer with nearly 10 years of experience specializing in serverless architecture and high-scale SaaS applications.",
+    "Proven ability in managing the full product lifecycle from initial system design and architecture to deployment, customer onboarding, and long-term maintenance.",
+    "Expert in cloud infrastructure orchestration using AWS serverless templates and integrating AI-driven engineering workflows (Claude Code, Cursor) into the SDLC."
+  ],
+  "philosophy": [
+    "Architecture is about reducing cognitive load, not adding abstraction layers.",
+    "Own it end-to-end — you build it, you run it, you support it.",
+    "Move fast with stable infra: iterate on the product, not the infrastructure.",
+    "Intentional tech debt is fine. Surprise debt kills projects."
+  ],
+  "principles": [
+    "Measure twice, cut once — RFCs before implementation for anything non-trivial.",
+    "Write code for the next developer. Your future self will thank you.",
+    "AI is a force multiplier — automate everything that can be automated.",
+    "Serverless first, containers when needed, VMs never by choice."
+  ],
+  "timeline": [
+    { "year": 2016, "role": "Senior Software Engineer", "org": "Tech Mahindra Ltd.", "highlight": "Integrated ELK stack for OTRS, cutting SLA resolution times" },
+    { "year": 2019, "role": "Frontend Developer", "org": "Propellor.ai", "highlight": "Built SaaS charting library with d3.js and ECharts" },
+    { "year": 2020, "role": "Full Stack Developer", "org": "DoctorC", "highlight": "Integrated Razorpay payments and WhatsApp Business API" },
+    { "year": 2021, "role": "Senior Consultant", "org": "Hitachi Digital Services", "highlight": "Architected publish-subscribe system with AWS Lambda and Step Functions" },
+    { "year": 2024, "role": "Principal Fullstack Developer", "org": "Genesys Telecom", "highlight": "Building BYOI platform and AI-driven JIRA automation workflows" }
+  ]
+}

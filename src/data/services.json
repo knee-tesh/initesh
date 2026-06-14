@@ -1,0 +1,38 @@
+[
+  {
+    "id": "code-audit",
+    "title": "Code & Architecture Audit",
+    "description": "Deep-dive review of your codebase, architecture decisions, and tech debt surface. Delivered as a prioritized remediation roadmap with estimated effort.",
+    "tier": "audit",
+    "priceRange": "$3k – $8k",
+    "delivery": "2 weeks",
+    "cta": "Book Audit"
+  },
+  {
+    "id": "tech-advisory",
+    "title": "Technical Advisory",
+    "description": "Ongoing advisory engagement — architecture reviews, RFC feedback, tech selection, and mentoring for your senior engineers. 4h/week minimum.",
+    "tier": "advisory",
+    "priceRange": "$500/h or $6k/mo",
+    "delivery": "Monthly retainer",
+    "cta": "Start Advisory"
+  },
+  {
+    "id": "feature-delivery",
+    "title": "Feature Delivery",
+    "description": "End-to-end delivery of critical features — from RFC through implementation, testing, and deployment. You define the scope, I ship it.",
+    "tier": "execution",
+    "priceRange": "$15k – $50k",
+    "delivery": "4–8 weeks",
+    "cta": "Ship Feature"
+  },
+  {
+    "id": "interim-lead",
+    "title": "Interim Tech Lead",
+    "description": "Step into your team as acting Tech Lead/Engineering Manager for 3–6 months. Run standups, unblock engineers, own delivery.",
+    "tier": "interim",
+    "priceRange": "$20k/mo",
+    "delivery": "3–6 month commitment",
+    "cta": "Hire Interim Lead"
+  }
+]
