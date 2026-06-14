@@ -22,7 +22,7 @@ export default async function HomePage() {
         <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
           I design and build production systems at scale — from serverless architecture to AI-driven workflows.
           <br />
-          Nearly 10 years of shipping. Currently at Principal level.
+          More than 10 years of shipping. Currently at Principal level.
         </p>
         <p className="text-xs" style={{ color: "var(--accent)" }} suppressHydrationWarning>
           System initialized. Palette: {palette.toUpperCase()}. Ready for input.
