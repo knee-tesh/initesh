@@ -1,4 +1,5 @@
 import ProcessCard from "@/components/process-card";
+import GuestbookForm from "@/components/guestbook-form";
 import contact from "@/data/contact.json";
 
 export default function ContactPage() {
@@ -125,6 +126,15 @@ export default function ContactPage() {
               Send via mailto
             </button>
           </form>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--accent)' }}>
+          Leave a Query
+        </h2>
+        <div className="process-card p-4 rounded-sm">
+          <GuestbookForm />
         </div>
       </section>
     </div>
