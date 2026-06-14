@@ -2,18 +2,8 @@
  * Tests for POST /api/queries endpoint
  */
 
-jest.mock('@vercel/kv', () => ({
-  kv: {
-    get: jest.fn().mockResolvedValue(null),
-    incr: jest.fn().mockResolvedValue(1),
-    expire: jest.fn().mockResolvedValue(1),
-    zadd: jest.fn().mockResolvedValue(1),
-    zrange: jest.fn().mockResolvedValue([]),
-    zrem: jest.fn().mockResolvedValue(1),
-    zcard: jest.fn().mockResolvedValue(0),
-    scard: jest.fn().mockResolvedValue(0),
-    sadd: jest.fn().mockResolvedValue(1),
-  },
+jest.mock('@libsql/client', () => ({
+  createClient: jest.fn().mockReturnValue({ execute: jest.fn().mockResolvedValue({ rows: [] }) }),
 }));
 
 describe('POST /api/queries', () => {

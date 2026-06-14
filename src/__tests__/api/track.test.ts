@@ -1,3 +1,7 @@
+jest.mock('@libsql/client', () => ({
+  createClient: jest.fn().mockReturnValue({ execute: jest.fn().mockResolvedValue({ rows: [] }) }),
+}));
+
 /**
  * Tests for POST /api/track endpoint
  * Tests the handler's input validation and response behavior.

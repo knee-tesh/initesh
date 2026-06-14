@@ -1,3 +1,7 @@
+jest.mock('@libsql/client', () => ({
+  createClient: jest.fn().mockReturnValue({ execute: jest.fn().mockResolvedValue({ rows: [] }) }),
+}));
+
 import type { Visitor, Query } from '@/lib/types';
 
 describe('Storage Interface', () => {
