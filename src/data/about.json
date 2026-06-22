@@ -1,26 +1,19 @@
 {
   "narrative": [
-    "Principal Fullstack Developer with nearly 10 years of experience specializing in serverless architecture and high-scale SaaS applications.",
-    "Proven ability in managing the full product lifecycle from initial system design and architecture to deployment, customer onboarding, and long-term maintenance.",
-    "Expert in cloud infrastructure orchestration using AWS serverless templates and integrating AI-driven engineering workflows (Claude Code, Cursor) into the SDLC."
+    "Principal Fullstack Developer with 10+ years of experience specializing in serverless architecture and high-scale SaaS applications.",
+    "I've shipped production systems across startups and enterprises — from building SaaS charting libraries with d3.js to architecting publish-subscribe systems with AWS Lambda and Step Functions.",
+    "Currently leading platform engineering at Genesys Telecom, building BYOI platforms and AI-driven JIRA automation workflows. I believe in owning systems end-to-end: if you build it, you run it."
   ],
   "philosophy": [
     "Architecture is about reducing cognitive load, not adding abstraction layers.",
     "Own it end-to-end — you build it, you run it, you support it.",
-    "Move fast with stable infra: iterate on the product, not the infrastructure.",
-    "Intentional tech debt is fine. Surprise debt kills projects."
-  ],
-  "principles": [
-    "Measure twice, cut once — RFCs before implementation for anything non-trivial.",
-    "Write code for the next developer. Your future self will thank you.",
-    "AI is a force multiplier — automate everything that can be automated.",
-    "Serverless first, containers when needed, VMs never by choice."
+    "AI is a force multiplier — automate everything that can be automated."
   ],
   "timeline": [
-    { "year": 2016, "role": "Senior Software Engineer", "org": "Tech Mahindra Ltd.", "highlight": "Integrated ELK stack for OTRS, cutting SLA resolution times" },
-    { "year": 2019, "role": "Frontend Developer", "org": "Propellor.ai", "highlight": "Built SaaS charting library with d3.js and ECharts" },
-    { "year": 2020, "role": "Full Stack Developer", "org": "DoctorC", "highlight": "Integrated Razorpay payments and WhatsApp Business API" },
-    { "year": 2021, "role": "Senior Consultant", "org": "Hitachi Digital Services", "highlight": "Architected publish-subscribe system with AWS Lambda and Step Functions" },
-    { "year": 2024, "role": "Principal Fullstack Developer", "org": "Genesys Telecom", "highlight": "Building BYOI platform and AI-driven JIRA automation workflows" }
+    { "year": "2024 – Present", "role": "Principal Fullstack Developer", "org": "Genesys Telecom", "highlight": "BYOI platform & AI-driven JIRA automation" },
+    { "year": "2021 – 2024", "role": "Senior Consultant", "org": "Hitachi Digital Services", "highlight": "AWS Lambda, Step Functions, pub/sub architecture" },
+    { "year": "2020 – 2021", "role": "Full Stack Developer", "org": "DoctorC", "highlight": "Razorpay payments & WhatsApp Business API" },
+    { "year": "2019 – 2020", "role": "Frontend Developer", "org": "Propellor.ai", "highlight": "SaaS charting library with d3.js & ECharts" },
+    { "year": "2016 – 2019", "role": "Senior Software Engineer", "org": "Tech Mahindra", "highlight": "ELK stack integration for OTRS" }
   ]
 }

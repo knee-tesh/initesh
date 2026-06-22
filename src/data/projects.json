@@ -1,0 +1,50 @@
+[
+  {
+    "id": "guardeye",
+    "title": "GuardEye Enterprises",
+    "description": "Security solutions e-commerce website with product catalog, lead generation, and testimonials.",
+    "category": "E-Commerce",
+    "techStack": ["Next.js 15", "React 19", "Tailwind CSS"],
+    "brandColor": "#3b82f6",
+    "liveUrl": "https://guardeye-lovat.vercel.app/",
+    "problem": "Local security business needed an online presence to showcase 50+ products and generate leads. No existing website or digital footprint.",
+    "result": "Live e-commerce site with product browsing, quote requests, and contact forms. Now ranking locally for security solutions in Sultanpur, UP.",
+    "features": ["Product catalog with 50+ items", "Lead generation forms", "WhatsApp integration", "Testimonials section", "Mobile responsive"]
+  },
+  {
+    "id": "aatmiya",
+    "title": "Aatmiya Foundation",
+    "description": "Elder care non-profit website with events, services, volunteer management, and donation support.",
+    "category": "Non-Profit",
+    "techStack": ["Next.js", "React", "Tailwind CSS"],
+    "brandColor": "#10b981",
+    "liveUrl": "https://aatmiya-ecru.vercel.app/",
+    "problem": "Non-profit organization needed a digital presence to showcase their mission, organize events, and recruit volunteers for elderly care in Lucknow.",
+    "result": "Full-featured non-profit website with event listings, service descriptions, volunteer signup, and community engagement. 200+ elders served through the platform.",
+    "features": ["Event management", "Service listings", "Volunteer signup", "Health camp registration", "Community testimonials"]
+  },
+  {
+    "id": "neha",
+    "title": "Neha Tiwari",
+    "description": "Professional portfolio for an HR Business Partner showcasing experience and expertise.",
+    "category": "Portfolio",
+    "techStack": ["React"],
+    "brandColor": "#c084fc",
+    "liveUrl": "https://tiwarineha.vercel.app/",
+    "problem": "HR professional needed a personal portfolio to establish online presence and showcase career highlights for networking and opportunities.",
+    "result": "Clean, professional portfolio that establishes credibility and provides easy contact access for potential employers and collaborators.",
+    "features": ["Professional bio", "Experience timeline", "Skills showcase", "Contact integration", "Mobile responsive"]
+  },
+  {
+    "id": "piyush",
+    "title": "Piyush Tiwari",
+    "description": "Professional portfolio for a Zonal Manager HRBP showcasing leadership and domain expertise.",
+    "category": "Portfolio",
+    "techStack": ["React"],
+    "brandColor": "#f59e0b",
+    "liveUrl": "https://piyusht.vercel.app/",
+    "problem": "Senior HR leader needed a professional portfolio to complement LinkedIn and showcase detailed case studies and achievements.",
+    "result": "Professional portfolio that highlights leadership experience and provides a centralized hub for career achievements and contact.",
+    "features": ["Leadership highlights", "Case studies", "Certification showcase", "Contact form", "Responsive design"]
+  }
+]

@@ -3,36 +3,136 @@
     "id": "code-audit",
     "title": "Code & Architecture Audit",
     "description": "Deep-dive review of your codebase, architecture decisions, and tech debt surface. Delivered as a prioritized remediation roadmap with estimated effort.",
+    "audience": "founders",
     "tier": "audit",
-    "priceRange": "$3k – $8k",
+    "priceRange": "₹75K – ₹2.5L",
     "delivery": "2 weeks",
-    "cta": "Book Audit"
+    "cta": "Book Audit",
+    "included": [
+      "Full codebase analysis (up to 100K LOC)",
+      "Architecture review & recommendations",
+      "Tech debt prioritization matrix",
+      "Remediation roadmap with effort estimates",
+      "60-min walkthrough call"
+    ]
   },
   {
     "id": "tech-advisory",
     "title": "Technical Advisory",
-    "description": "Ongoing advisory engagement — architecture reviews, RFC feedback, tech selection, and mentoring for your senior engineers. 4h/week minimum.",
+    "description": "Ongoing advisory engagement — architecture reviews, RFC feedback, tech selection, and mentoring for your senior engineers.",
+    "audience": "founders",
     "tier": "advisory",
-    "priceRange": "$500/h or $6k/mo",
+    "priceRange": "₹3K–₹5K/hr",
     "delivery": "Monthly retainer",
-    "cta": "Start Advisory"
+    "cta": "Start Advisory",
+    "included": [
+      "Architecture reviews & RFC feedback",
+      "Tech stack selection guidance",
+      "Senior engineer mentoring",
+      "Weekly 4h minimum commitment",
+      "Async Slack/WhatsApp support"
+    ]
   },
   {
     "id": "feature-delivery",
     "title": "Feature Delivery",
     "description": "End-to-end delivery of critical features — from RFC through implementation, testing, and deployment. You define the scope, I ship it.",
+    "audience": "founders",
     "tier": "execution",
-    "priceRange": "$15k – $50k",
+    "priceRange": "₹4L – ₹15L",
     "delivery": "4–8 weeks",
-    "cta": "Ship Feature"
+    "cta": "Ship Feature",
+    "included": [
+      "RFC & technical design",
+      "Full implementation with tests",
+      "CI/CD setup & deployment",
+      "Code review & documentation",
+      "Post-launch support (2 weeks)"
+    ]
   },
   {
     "id": "interim-lead",
     "title": "Interim Tech Lead",
-    "description": "Step into your team as acting Tech Lead/Engineering Manager for 3–6 months. Run standups, unblock engineers, own delivery.",
+    "description": "Step into your team as acting Tech Lead/Engineering Manager. Run standups, unblock engineers, own delivery.",
+    "audience": "founders",
     "tier": "interim",
-    "priceRange": "$20k/mo",
-    "delivery": "3–6 month commitment",
-    "cta": "Hire Interim Lead"
+    "priceRange": "₹4L–₹6L/mo",
+    "delivery": "3–6 months",
+    "cta": "Hire Interim Lead",
+    "included": [
+      "Daily standups & sprint planning",
+      "Architecture decisions & RFC ownership",
+      "Engineer 1:1s & mentoring",
+      "Stakeholder reporting",
+      "Full team leadership"
+    ]
+  },
+  {
+    "id": "ai-training",
+    "title": "AI Training & Workshops",
+    "description": "Hands-on workshops on Claude Code, Cursor, GitHub Copilot, and AI-augmented development workflows.",
+    "audience": "developers",
+    "tier": "learning",
+    "priceRange": "₹8K–₹15K/session",
+    "delivery": "90 min",
+    "cta": "Book Workshop",
+    "included": [
+      "Live hands-on session (max 10 people)",
+      "Custom curriculum for your team",
+      "Recording provided for async viewing",
+      "Follow-up Q&A session",
+      "Resource kit with prompts & workflows"
+    ]
+  },
+  {
+    "id": "interview-coaching",
+    "title": "Interview Coaching",
+    "description": "System design mocks, behavioral prep, and portfolio reviews for senior engineering roles.",
+    "audience": "developers",
+    "tier": "learning",
+    "priceRange": "₹3K–₹5K/session",
+    "delivery": "60 min",
+    "cta": "Book Session",
+    "included": [
+      "System design mock interview",
+      "Behavioral question prep (STAR method)",
+      "Resume & portfolio review",
+      "Personalized feedback & action items",
+      "Follow-up email with resources"
+    ]
+  },
+  {
+    "id": "portfolio-build",
+    "title": "Portfolio Build & Review",
+    "description": "Build or overhaul your developer portfolio. Case studies, project framing, visual design, and deployment.",
+    "audience": "developers",
+    "tier": "learning",
+    "priceRange": "₹15K–₹50K",
+    "delivery": "1–2 weeks",
+    "cta": "Build Portfolio",
+    "included": [
+      "Strategy call to define goals",
+      "Custom design & development",
+      "Project case study writing",
+      "SEO & performance optimization",
+      "Deployment & handover"
+    ]
+  },
+  {
+    "id": "mentoring",
+    "title": "1:1 Mentoring",
+    "description": "Career guidance, architecture discussions, and growth planning for senior developers.",
+    "audience": "developers",
+    "tier": "learning",
+    "priceRange": "₹2K–₹3K/hr",
+    "delivery": "Flexible",
+    "cta": "Book Mentoring",
+    "included": [
+      "Career growth planning",
+      "Architecture & system design discussions",
+      "Code review & feedback",
+      "Leadership & soft skills coaching",
+      "Flexible scheduling"
+    ]
   }
 ]
