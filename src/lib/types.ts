@@ -57,6 +57,10 @@ export interface Visitor {
   city?: string;
   userAgent?: string;
   referrer?: string;
+  sessionId?: string;
+  visitDuration?: number;
+  scrollDepth?: number;
+  exitPage?: boolean;
 }
 
 export interface Query {
