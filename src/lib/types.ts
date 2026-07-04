@@ -94,3 +94,36 @@ export interface AnalyticsData {
   trafficOverTime: { date: string; count: number }[];
   deviceBreakdown: { type: string; count: number }[];
 }
+
+export interface Project {
+  id: string;
+  title: string;
+  brand: string;
+  brandColor: string;
+  description: string;
+  problem: string;
+  result: string;
+  features: string[];
+  techStack: string[];
+  liveUrl?: string;
+  image?: string;
+  screenshots?: string[];
+  demoVideo?: string;
+  architecture?: ArchitectureNode[];
+  testimonials?: Testimonial[];
+}
+
+export interface ArchitectureNode {
+  id: string;
+  label: string;
+  type: 'frontend' | 'backend' | 'database' | 'service' | 'external';
+  description?: string;
+  connections: string[];
+}
+
+export interface Testimonial {
+  author: string;
+  role: string;
+  content: string;
+  rating?: number;
+}
