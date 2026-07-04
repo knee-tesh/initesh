@@ -7,6 +7,7 @@ import MobileMenu from "./mobile-menu";
 const links = [
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
+  { label: "API Docs", href: "/api-docs" },
   { label: "Book a Call →", href: "/contact" },
 ];
 
