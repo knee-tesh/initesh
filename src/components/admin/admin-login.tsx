@@ -27,8 +27,8 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
   }
 
   return (
-    <div className="process-card p-6 rounded-sm max-w-sm mx-auto">
-      <h2 className="text-sm uppercase tracking-wider mb-4" style={{ color: 'var(--muted)' }}>
+    <div className="bg-surface border border-border p-6 rounded-sm max-w-sm mx-auto">
+      <h2 className="text-xs uppercase tracking-wider mb-4 text-muted font-[family-name:var(--font-mono)]">
         Authentication Required
       </h2>
       <form onSubmit={handleSubmit} className="space-y-3">
@@ -36,8 +36,8 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="keyboard-nav w-full border px-3 py-2 text-sm rounded-sm bg-transparent"
-          style={{ borderColor: 'var(--border)', color: 'var(--fg)' }}
+          className="keyboard-nav w-full border border-border px-3 py-2 text-sm rounded-sm bg-transparent text-text"
+          style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
           placeholder="Enter admin password"
           autoFocus
         />
@@ -45,7 +45,7 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
         <button
           type="submit"
           disabled={loading}
-          className="keyboard-nav btn-accent px-4 py-2 text-sm rounded-sm w-full"
+          className="keyboard-nav bg-accent text-void px-4 py-2 text-sm rounded-sm w-full font-semibold hover:opacity-90 transition-opacity"
         >
           {loading ? 'Authenticating...' : 'Login'}
         </button>

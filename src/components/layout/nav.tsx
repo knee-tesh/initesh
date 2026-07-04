@@ -7,7 +7,7 @@ import MobileMenu from "./mobile-menu";
 const links = [
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Book a Call →", href: "/contact" },
 ];
 
 export default function Nav() {
@@ -32,12 +32,12 @@ export default function Nav() {
                 {link.label}
               </Link>
             ))}
-            <Link
+            {/* <Link
               href="/contact"
-              className="bg-accent text-void px-4 py-1.5 rounded text-sm font-semibold font-[family-name:var(--font-mono)] hover:opacity-90 transition-opacity"
+              className="text-text text-void px-4 py-1.5 rounded text-sm font-semibold font-[family-name:var(--font-mono)] hover:opacity-90 transition-opacity"
             >
-              Book a Call →
-            </Link>
+              
+            </Link> */}
           </div>
 
           <button

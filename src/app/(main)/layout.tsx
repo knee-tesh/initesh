@@ -1,5 +1,6 @@
 import Nav from "@/components/layout/nav";
 import Footer from "@/components/layout/footer";
+import ChatWidget from "@/components/chat/chat-widget";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         {children}
       </main>
       <Footer />
+      <ChatWidget />
     </>
   );
 }

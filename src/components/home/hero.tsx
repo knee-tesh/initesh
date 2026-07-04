@@ -17,7 +17,7 @@ export default function Hero() {
       </p>
 
       <div className="flex items-center justify-center gap-3 mb-12">
-        <CtaButton href="/services">Explore Services</CtaButton>
+        <CtaButton href="/services" variant="secondary">Explore Services</CtaButton>
         <CtaButton href="/projects" variant="secondary">View My Work</CtaButton>
       </div>
 
