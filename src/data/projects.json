@@ -9,7 +9,39 @@
     "liveUrl": "https://guardeye-lovat.vercel.app/",
     "problem": "Local security business needed an online presence to showcase 50+ products and generate leads. No existing website or digital footprint.",
     "result": "Live e-commerce site with product browsing, quote requests, and contact forms. Now ranking locally for security solutions in Sultanpur, UP.",
-    "features": ["Product catalog with 50+ items", "Lead generation forms", "WhatsApp integration", "Testimonials section", "Mobile responsive"]
+    "features": ["Product catalog with 50+ items", "Lead generation forms", "WhatsApp integration", "Testimonials section", "Mobile responsive"],
+    "screenshots": ["/images/guardeye-1.png", "/images/guardeye-2.png"],
+    "architecture": [
+      {
+        "id": "frontend",
+        "label": "Next.js Frontend",
+        "type": "frontend",
+        "description": "React SSR/SSG with Tailwind CSS",
+        "connections": ["api"]
+      },
+      {
+        "id": "api",
+        "label": "Next.js API Routes",
+        "type": "backend",
+        "description": "Serverless API endpoints",
+        "connections": ["db"]
+      },
+      {
+        "id": "db",
+        "label": "MongoDB",
+        "type": "database",
+        "description": "Product & order data",
+        "connections": []
+      }
+    ],
+    "testimonials": [
+      {
+        "author": "Rajesh Kumar",
+        "role": "Owner, GuardEye Enterprises",
+        "content": "Nitesh delivered an exceptional e-commerce platform that has significantly increased our online leads and product visibility.",
+        "rating": 5
+      }
+    ]
   },
   {
     "id": "aatmiya",
@@ -21,7 +53,39 @@
     "liveUrl": "https://aatmiya-ecru.vercel.app/",
     "problem": "Non-profit organization needed a digital presence to showcase their mission, organize events, and recruit volunteers for elderly care in Lucknow.",
     "result": "Full-featured non-profit website with event listings, service descriptions, volunteer signup, and community engagement. 200+ elders served through the platform.",
-    "features": ["Event management", "Service listings", "Volunteer signup", "Health camp registration", "Community testimonials"]
+    "features": ["Event management", "Service listings", "Volunteer signup", "Health camp registration", "Community testimonials"],
+    "screenshots": ["/images/aatmiya-1.png", "/images/aatmiya-2.png"],
+    "architecture": [
+      {
+        "id": "frontend",
+        "label": "Next.js Frontend",
+        "type": "frontend",
+        "description": "React SSR/SSG with Tailwind CSS",
+        "connections": ["api"]
+      },
+      {
+        "id": "api",
+        "label": "Next.js API Routes",
+        "type": "backend",
+        "description": "Serverless API endpoints",
+        "connections": ["db"]
+      },
+      {
+        "id": "db",
+        "label": "MongoDB",
+        "type": "database",
+        "description": "Events, volunteers, and registrations",
+        "connections": []
+      }
+    ],
+    "testimonials": [
+      {
+        "author": "Anita Sharma",
+        "role": "Director, Aatmiya Foundation",
+        "content": "The website has transformed how we connect with volunteers and serve our community. Nitesh understood our mission perfectly.",
+        "rating": 5
+      }
+    ]
   },
   {
     "id": "neha",
@@ -33,7 +97,25 @@
     "liveUrl": "https://tiwarineha.vercel.app/",
     "problem": "HR professional needed a personal portfolio to establish online presence and showcase career highlights for networking and opportunities.",
     "result": "Clean, professional portfolio that establishes credibility and provides easy contact access for potential employers and collaborators.",
-    "features": ["Professional bio", "Experience timeline", "Skills showcase", "Contact integration", "Mobile responsive"]
+    "features": ["Professional bio", "Experience timeline", "Skills showcase", "Contact integration", "Mobile responsive"],
+    "screenshots": ["/images/neha-1.png"],
+    "architecture": [
+      {
+        "id": "frontend",
+        "label": "React SPA",
+        "type": "frontend",
+        "description": "Single-page application with React",
+        "connections": []
+      }
+    ],
+    "testimonials": [
+      {
+        "author": "Neha Tiwari",
+        "role": "HR Business Partner",
+        "content": "Nitesh created a professional portfolio that perfectly represents my career and expertise. The design is clean and modern.",
+        "rating": 5
+      }
+    ]
   },
   {
     "id": "piyush",
@@ -45,6 +127,24 @@
     "liveUrl": "https://piyusht.vercel.app/",
     "problem": "Senior HR leader needed a professional portfolio to complement LinkedIn and showcase detailed case studies and achievements.",
     "result": "Professional portfolio that highlights leadership experience and provides a centralized hub for career achievements and contact.",
-    "features": ["Leadership highlights", "Case studies", "Certification showcase", "Contact form", "Responsive design"]
+    "features": ["Leadership highlights", "Case studies", "Certification showcase", "Contact form", "Responsive design"],
+    "screenshots": ["/images/piyush-1.png"],
+    "architecture": [
+      {
+        "id": "frontend",
+        "label": "React SPA",
+        "type": "frontend",
+        "description": "Single-page application with React",
+        "connections": []
+      }
+    ],
+    "testimonials": [
+      {
+        "author": "Piyush Tiwari",
+        "role": "Zonal Manager HRBP",
+        "content": "The portfolio Nitesh built effectively showcases my leadership journey and has helped in professional networking.",
+        "rating": 5
+      }
+    ]
   }
 ]
