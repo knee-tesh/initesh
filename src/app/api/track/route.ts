@@ -9,7 +9,7 @@ const FALLBACK_IP = '127.0.0.1';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { page, referrer, userAgent } = body;
+    const { page, referrer, userAgent, sessionId, visitDuration, scrollDepth } = body;
 
     if (!page || !ALLOWED_PAGES.includes(page)) {
       return NextResponse.json({ error: 'Invalid page' }, { status: 400 });
@@ -33,6 +33,9 @@ export async function POST(request: NextRequest) {
       city,
       userAgent: userAgent ?? undefined,
       referrer: referrer ?? undefined,
+      sessionId: sessionId ?? undefined,
+      visitDuration: visitDuration ?? undefined,
+      scrollDepth: scrollDepth ?? undefined,
     };
 
     await storage.addVisitor(visitor);
