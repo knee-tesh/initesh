@@ -1,5 +1,5 @@
 import { createClient } from '@libsql/client';
-import type { Visitor, Query, VisitorStats } from './types';
+import type { Visitor, Query, VisitorStats, AnalyticsData } from './types';
 
 const turso = createClient({
   url: process.env.TURSO_DATABASE_URL!,
@@ -9,11 +9,13 @@ const turso = createClient({
 export const storage = {
   async addVisitor(visitor: Visitor): Promise<void> {
     await turso.execute({
-      sql: `INSERT INTO visitors (id, timestamp, page, ip_hash, country, city, user_agent, referrer)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO visitors (id, timestamp, page, ip_hash, country, city, user_agent, referrer, session_id, visit_duration, scroll_depth, exit_page)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [visitor.id, visitor.timestamp, visitor.page, visitor.ipHash,
              visitor.country ?? null, visitor.city ?? null,
-             visitor.userAgent ?? null, visitor.referrer ?? null],
+             visitor.userAgent ?? null, visitor.referrer ?? null,
+             visitor.sessionId ?? null, visitor.visitDuration ?? null,
+             visitor.scrollDepth ?? null, visitor.exitPage ? 1 : 0],
     });
   },
 
@@ -61,6 +63,10 @@ export const storage = {
       city: (row.city as string) ?? undefined,
       userAgent: (row.user_agent as string) ?? undefined,
       referrer: (row.referrer as string) ?? undefined,
+      sessionId: (row.session_id as string) ?? undefined,
+      visitDuration: (row.visit_duration as number) ?? undefined,
+      scrollDepth: (row.scroll_depth as number) ?? undefined,
+      exitPage: (row.exit_page as number) === 1,
     }));
   },
 
@@ -104,6 +110,68 @@ export const storage = {
       .sort((a, b) => b.visits - a.visits);
 
     return { totalVisits, uniqueVisitors: uniqueCount, todayVisits, weekVisits, topPages };
+  },
+
+  async getAnalytics(): Promise<AnalyticsData> {
+    const totalResult = await turso.execute('SELECT COUNT(*) as count FROM visitors');
+    const totalVisits = totalResult.rows[0]?.count as number || 0;
+
+    const sessionsResult = await turso.execute('SELECT COUNT(DISTINCT session_id) as count FROM visitors WHERE session_id IS NOT NULL');
+    const uniqueSessions = sessionsResult.rows[0]?.count as number || 0;
+
+    const durationResult = await turso.execute('SELECT AVG(visit_duration) as avg_duration FROM visitors WHERE visit_duration IS NOT NULL');
+    const avgDuration = durationResult.rows[0]?.avg_duration as number || 0;
+
+    const scrollResult = await turso.execute('SELECT AVG(scroll_depth) as avg_depth FROM visitors WHERE scroll_depth IS NOT NULL');
+    const avgScrollDepth = scrollResult.rows[0]?.avg_depth as number || 0;
+
+    const referrersResult = await turso.execute(`
+      SELECT referrer, COUNT(*) as count
+      FROM visitors
+      WHERE referrer IS NOT NULL AND referrer != ''
+      GROUP BY referrer
+      ORDER BY count DESC
+      LIMIT 10
+    `);
+
+    const trafficResult = await turso.execute(`
+      SELECT DATE(timestamp) as date, COUNT(*) as count
+      FROM visitors
+      WHERE timestamp >= datetime('now', '-30 days')
+      GROUP BY DATE(timestamp)
+      ORDER BY date
+    `);
+
+    const deviceResult = await turso.execute(`
+      SELECT
+        CASE
+          WHEN user_agent LIKE '%Mobile%' OR user_agent LIKE '%Android%' THEN 'Mobile'
+          WHEN user_agent LIKE '%Tablet%' OR user_agent LIKE '%iPad%' THEN 'Tablet'
+          ELSE 'Desktop'
+        END as device_type,
+        COUNT(*) as count
+      FROM visitors
+      GROUP BY device_type
+    `);
+
+    return {
+      totalVisits,
+      uniqueSessions,
+      avgDuration: Math.round(avgDuration),
+      avgScrollDepth: Math.round(avgScrollDepth),
+      topReferrers: referrersResult.rows.map(r => ({
+        referrer: r.referrer as string,
+        count: r.count as number,
+      })),
+      trafficOverTime: trafficResult.rows.map(r => ({
+        date: r.date as string,
+        count: r.count as number,
+      })),
+      deviceBreakdown: deviceResult.rows.map(r => ({
+        type: r.device_type as string,
+        count: r.count as number,
+      })),
+    };
   },
 
   async exportAll(): Promise<{ exportedAt: string; visitors: Visitor[]; queries: Query[]; stats: VisitorStats }> {

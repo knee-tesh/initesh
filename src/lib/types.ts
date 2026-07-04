@@ -84,3 +84,13 @@ export interface VisitorStats {
   weekVisits: number;
   topPages: { page: string; visits: number; percentage: number }[];
 }
+
+export interface AnalyticsData {
+  totalVisits: number;
+  uniqueSessions: number;
+  avgDuration: number;
+  avgScrollDepth: number;
+  topReferrers: { referrer: string; count: number }[];
+  trafficOverTime: { date: string; count: number }[];
+  deviceBreakdown: { type: string; count: number }[];
+}
