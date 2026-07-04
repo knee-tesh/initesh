@@ -1,4 +1,8 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import TerminalWindow from "@/components/shared/terminal-window";
+import AdminLogin from '@/components/admin/admin-login';
 
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
 
@@ -220,6 +224,34 @@ function EndpointCard({ endpoint }: { endpoint: Endpoint }) {
 }
 
 export default function ApiDocsPage() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/admin/stats')
+      .then((res) => {
+        setAuthenticated(res.ok);
+        setChecking(false);
+      })
+      .catch(() => setChecking(false));
+  }, []);
+
+  if (checking) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <p className="text-sm" style={{ color: 'var(--muted)' }}>Verifying access...</p>
+      </div>
+    );
+  }
+
+  if (!authenticated) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <AdminLogin onLogin={() => setAuthenticated(true)} />
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-[640px]">
       <h1 className="text-2xl md:text-3xl font-bold text-text mb-2 font-[family-name:var(--font-display)]">
