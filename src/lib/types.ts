@@ -98,7 +98,7 @@ export interface AnalyticsData {
 export interface Project {
   id: string;
   title: string;
-  brand: string;
+  category: string;
   brandColor: string;
   description: string;
   problem: string;

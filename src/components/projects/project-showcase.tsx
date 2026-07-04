@@ -23,10 +23,10 @@ export default function ProjectShowcase({ project }: { project: Project }) {
 
   return (
     <div className="space-y-6">
-      <TerminalWindow title={`${project.brand.toLowerCase()}@showcase`}>
+      <TerminalWindow title={`${project.category.toLowerCase()}@showcase`}>
         <div className="space-y-4">
           <div className="flex items-center gap-3 flex-wrap">
-            <Tag label={project.brand} color={project.brandColor} />
+            <Tag label={project.category} color={project.brandColor} />
             {project.techStack.map((tech) => (
               <Tag key={tech} label={tech} />
             ))}
