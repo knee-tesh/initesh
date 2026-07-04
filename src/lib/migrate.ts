@@ -38,6 +38,22 @@ export async function migrate() {
   for (const sql of migrations) {
     await turso.execute(sql);
   }
+
+  const alterQueries = [
+    `ALTER TABLE visitors ADD COLUMN session_id TEXT`,
+    `ALTER TABLE visitors ADD COLUMN visit_duration INTEGER`,
+    `ALTER TABLE visitors ADD COLUMN scroll_depth INTEGER`,
+    `ALTER TABLE visitors ADD COLUMN exit_page BOOLEAN DEFAULT FALSE`,
+  ];
+
+  for (const query of alterQueries) {
+    try {
+      await turso.execute(query);
+    } catch {
+      // Column already exists, ignore
+    }
+  }
+
   console.log('[migrate] All tables ready');
 }
 
