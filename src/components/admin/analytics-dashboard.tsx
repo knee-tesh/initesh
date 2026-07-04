@@ -60,7 +60,7 @@ export default function AnalyticsDashboard() {
             {[
               { label: 'Total Visits', value: analytics.totalVisits.toLocaleString() },
               { label: 'Unique Sessions', value: analytics.uniqueSessions.toLocaleString() },
-              { label: 'Avg Duration', value: `${Math.round(analytics.avgDuration)}s` },
+              { label: 'Avg Duration', value: `${Math.round(analytics.avgDuration / 1000)}s` },
               { label: 'Avg Scroll', value: `${Math.round(analytics.avgScrollDepth)}%` },
             ].map((item) => (
               <div key={item.label} className="process-card p-3 rounded-sm">
@@ -105,8 +105,9 @@ export default function AnalyticsDashboard() {
               $ devices --breakdown
             </div>
             <div className="space-y-2">
-              {analytics.deviceBreakdown.map((device) => {
+              {(() => {
                 const total = analytics.deviceBreakdown.reduce((sum, d) => sum + d.count, 0);
+                return analytics.deviceBreakdown.map((device) => {
                 const percentage = total > 0 ? Math.round((device.count / total) * 100) : 0;
                 return (
                   <div key={device.type} className="process-card p-2 rounded-sm">
@@ -125,7 +126,7 @@ export default function AnalyticsDashboard() {
                     </div>
                   </div>
                 );
-              })}
+              })})()}
             </div>
           </div>
         </TerminalWindow>
