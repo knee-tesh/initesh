@@ -10,14 +10,20 @@ export function useAnalytics() {
   const maxScrollDepth = useRef<number>(0);
 
   useEffect(() => {
+    const referrer = document.referrer;
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = Math.round((scrollTop / docHeight) * 100);
-      if (scrollPercent > maxScrollDepth.current) {
-        maxScrollDepth.current = scrollPercent;
+      if (docHeight > 0) {
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+        if (scrollPercent > maxScrollDepth.current) {
+          maxScrollDepth.current = scrollPercent;
+        }
       }
     };
+
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -31,7 +37,7 @@ export function useAnalytics() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           page: pathname,
-          referrer: document.referrer,
+          referrer,
           userAgent: navigator.userAgent,
           sessionId: sessionId.current,
           visitDuration,
