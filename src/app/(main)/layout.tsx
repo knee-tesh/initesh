@@ -1,6 +1,7 @@
 import Nav from "@/components/layout/nav";
 import Footer from "@/components/layout/footer";
 import ChatWidget from "@/components/chat/chat-widget";
+import { PresenceIndicator } from "@/components/shared/presence-indicator";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,6 +12,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </main>
       <Footer />
       <ChatWidget />
+      <PresenceIndicator />
     </>
   );
 }
