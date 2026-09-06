@@ -4,7 +4,7 @@ import { escapeHtml, validateContact } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   if (!process.env.MAILERSEND_TOKEN || !process.env.MAILERSEND_FROM) {
-    return NextResponse.json({ error: 'Email is not configured' }, { status: 502 });
+    return NextResponse.json({ error: 'Email is not configured' }, { status: 501 });
   }
 
   let body: unknown;
