@@ -41,9 +41,9 @@ export default function GuestbookForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-surface border border-border p-4 rounded-sm">
-        <p className="text-sm text-accent">
-          [✓] Query logged. Response expected within 48 hours.
+      <div className="bg-linen border border-hem p-4 rounded text-teal">
+        <p className="text-sm">
+          Query logged — expect a reply within 48 hours.
         </p>
       </div>
     );
@@ -52,7 +52,7 @@ export default function GuestbookForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <div>
-        <label className="text-xs block mb-1 text-muted font-[family-name:var(--font-mono)]" htmlFor="gb-name">
+        <label className="text-xs block mb-1 text-stone font-[family-name:var(--font-script)]" htmlFor="gb-name">
           NAME
         </label>
         <input
@@ -62,12 +62,12 @@ export default function GuestbookForm() {
           required
           minLength={2}
           maxLength={100}
-          className="keyboard-nav w-full border border-border px-3 py-2 text-sm rounded-sm bg-transparent text-text"
+          className="keyboard-nav w-full border border-hem px-3 py-2 text-sm rounded-sm bg-paper text-ink"
           placeholder="Your name"
         />
       </div>
       <div>
-        <label className="text-xs block mb-1 text-muted font-[family-name:var(--font-mono)]" htmlFor="gb-email">
+        <label className="text-xs block mb-1 text-stone font-[family-name:var(--font-script)]" htmlFor="gb-email">
           EMAIL
         </label>
         <input
@@ -75,12 +75,12 @@ export default function GuestbookForm() {
           id="gb-email"
           name="email"
           required
-          className="keyboard-nav w-full border border-border px-3 py-2 text-sm rounded-sm bg-transparent text-text"
+          className="keyboard-nav w-full border border-hem px-3 py-2 text-sm rounded-sm bg-paper text-ink"
           placeholder="you@example.com"
         />
       </div>
       <div>
-        <label className="text-xs block mb-1 text-muted font-[family-name:var(--font-mono)]" htmlFor="gb-message">
+        <label className="text-xs block mb-1 text-stone font-[family-name:var(--font-script)]" htmlFor="gb-message">
           MESSAGE
         </label>
         <textarea
@@ -90,7 +90,7 @@ export default function GuestbookForm() {
           required
           minLength={10}
           maxLength={1000}
-          className="keyboard-nav w-full border border-border px-3 py-2 text-sm rounded-sm bg-transparent text-text resize-y"
+          className="keyboard-nav w-full border border-hem px-3 py-2 text-sm rounded-sm bg-paper text-ink resize-y"
           placeholder="Your query or message..."
         />
       </div>
@@ -102,7 +102,7 @@ export default function GuestbookForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="keyboard-nav bg-accent text-void px-4 py-2 text-sm rounded-sm disabled:opacity-50 font-semibold hover:opacity-90 transition-opacity"
+        className="keyboard-nav bg-terracotta text-linen px-4 py-2 text-sm rounded-sm disabled:opacity-50 font-semibold hover:opacity-90 transition-opacity"
       >
         {status === 'submitting' ? 'Sending...' : 'Submit Query'}
       </button>
