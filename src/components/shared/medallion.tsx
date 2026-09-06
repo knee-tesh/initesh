@@ -2,7 +2,7 @@ export default function Medallion({ className = "", children }: { className?: st
   return (
     <span
       aria-hidden
-      className={`inline-flex items-center justify-center flex-shrink-0 rounded-full border-2 border-terracotta text-terracotta ${className || "w-8 h-8"}`}
+      className={`inline-flex items-center justify-center flex-shrink-0 rounded-full border-2 ${className || "w-8 h-8"}`}
       style={{ boxShadow: "inset 0 0 0 2px var(--color-blush)" }}
     >
       {children}

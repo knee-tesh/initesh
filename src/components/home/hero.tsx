@@ -17,7 +17,7 @@ export default function Hero() {
 
       <div className="inline-flex items-center gap-2 bg-blush border border-hem rounded-full px-4 py-1 -rotate-2 mt-14 mb-8">
         <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-        <span className="text-sm text-terracotta font-[family-name:var(--font-script)]">open to new work</span>
+        <span className="text-sm text-stone font-[family-name:var(--font-script)]">open to new work</span>
       </div>
 
       <p className="text-2xl text-teal font-[family-name:var(--font-script)] mb-1">Namaste,</p>
