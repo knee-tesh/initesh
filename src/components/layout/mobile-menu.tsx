@@ -5,7 +5,7 @@ import Link from "next/link";
 const links = [
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "API Docs", href: "/api-docs" },
 ];
 
 export default function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -15,7 +15,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
     <div className="fixed inset-0 z-[100] bg-void flex flex-col items-center justify-center gap-8">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-muted hover:text-text"
+        className="absolute top-4 right-4 text-stone hover:text-teal"
         aria-label="Close menu"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -28,7 +28,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
           key={link.href}
           href={link.href}
           onClick={onClose}
-          className="text-2xl text-text hover:text-accent transition-colors font-[family-name:var(--font-display)]"
+          className="text-2xl text-ink hover:text-terracotta transition-colors font-[family-name:var(--font-display)]"
         >
           {link.label}
         </Link>
@@ -37,7 +37,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
       <Link
         href="/contact"
         onClick={onClose}
-        className="bg-accent text-void px-6 py-3 rounded text-lg font-semibold font-[family-name:var(--font-mono)]"
+        className="bg-terracotta text-linen px-6 py-3 rounded-full text-lg font-semibold"
       >
         Book a Call →
       </Link>
