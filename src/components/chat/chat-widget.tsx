@@ -1,8 +1,19 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
+import { useRouter } from 'next/navigation';
 import Medallion from '@/components/shared/medallion';
 import { createSseState, parseSseChunk } from '@/lib/sse';
+import { parseTourTag } from '@/lib/tour-tag';
+import { quickQuestions } from '@/data/qaData';
+
+const PAGE_MAP: Record<string, { label: string; href: string }> = {
+  home: { label: 'Home', href: '/' },
+  services: { label: 'Services', href: '/services' },
+  about: { label: 'About', href: '/about' },
+  projects: { label: 'Projects', href: '/projects' },
+  contact: { label: 'Contact', href: '/contact' },
+};
 
 type Message = {
   role: 'user' | 'assistant';
@@ -11,6 +22,7 @@ type Message = {
 };
 
 export default function ChatWidget() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: "Hi! Ask me anything about Nitesh's work, skills, or services.", tour: null },
@@ -86,7 +98,16 @@ export default function ChatWidget() {
         appendAssistant(delta);
       }
 
-      if (!full) {
+      if (full) {
+        const { slug, clean } = parseTourTag(full);
+        const tour = slug && PAGE_MAP[slug] ? { slug, label: PAGE_MAP[slug].label } : null;
+        setMessages(prev => {
+          const copy = prev.slice();
+          const last = copy[copy.length - 1];
+          if (last && last.role === 'assistant') copy[copy.length - 1] = { ...last, content: clean, tour };
+          return copy;
+        });
+      } else {
         setMessages(prev => [...prev.slice(0, -1), { role: 'assistant', content: 'Sorry, I could not generate a response.', tour: null }]);
       }
     } catch {
@@ -117,27 +138,51 @@ export default function ChatWidget() {
 
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
             {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div
-                  className={`max-w-[80%] px-3 py-2 rounded-lg text-sm leading-relaxed ${
-                    msg.role === 'user'
-                      ? 'bg-terracotta text-linen rounded-br-sm'
-                      : 'bg-paper text-ink border border-hem rounded-bl-sm'
-                  }`}
-                >
-                  {msg.content}
-                  {(isStreaming || isLoading) && msg.role === 'assistant' && msg.content === '' && (
-                    <span className="inline-flex gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-stone animate-pulse" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-stone animate-pulse [animation-delay:0.15s]" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-stone animate-pulse [animation-delay:0.3s]" />
-                    </span>
-                  )}
+              <Fragment key={i}>
+                <div className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div
+                    className={`max-w-[80%] px-3 py-2 rounded-lg text-sm leading-relaxed ${
+                      msg.role === 'user'
+                        ? 'bg-terracotta text-linen rounded-br-sm'
+                        : 'bg-paper text-ink border border-hem rounded-bl-sm'
+                    }`}
+                  >
+                    {msg.content}
+                    {(isStreaming || isLoading) && msg.role === 'assistant' && msg.content === '' && (
+                      <span className="inline-flex gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone animate-pulse [animation-delay:0.15s]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone animate-pulse [animation-delay:0.3s]" />
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
+                {msg.role === 'assistant' && msg.tour && (
+                  <button
+                    onClick={() => router.push(PAGE_MAP[msg.tour!.slug].href)}
+                    className="mt-2 block text-xs font-[family-name:var(--font-script)] text-teal hover:underline"
+                  >
+                    Go to {PAGE_MAP[msg.tour!.slug].label} →
+                  </button>
+                )}
+              </Fragment>
             ))}
             <div ref={messagesEndRef} />
           </div>
+
+          {messages.length === 1 && (
+            <div className="px-4 pt-2 flex flex-wrap gap-1.5">
+              {quickQuestions.map(q => (
+                <button
+                  key={q}
+                  onClick={() => handleSend(q)}
+                  className="text-xs text-stone bg-paper border border-hem rounded-full px-2.5 py-1 hover:text-teal hover:border-teal transition-colors"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="border-t border-hem px-4 py-3">
             <div className="flex gap-2">
