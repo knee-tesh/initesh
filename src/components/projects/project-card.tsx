@@ -5,7 +5,7 @@ export default function ProjectCard({ project }: { project: any }) {
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="block bg-surface border border-border rounded-lg overflow-hidden hover:border-border transition-colors group"
+      className="stitch-card overflow-hidden group block"
       style={{ borderLeftWidth: "3px", borderLeftColor: project.brandColor }}
     >
       <div className="p-5">
@@ -15,13 +15,13 @@ export default function ProjectCard({ project }: { project: any }) {
             <Tag key={tech} label={tech} />
           ))}
         </div>
-        <h3 className="text-base font-semibold text-text mb-1 font-[family-name:var(--font-display)]">
+        <h3 className="text-base font-semibold text-ink mb-1 font-[family-name:var(--font-display)]">
           {project.title}
         </h3>
-        <p className="text-sm text-muted leading-relaxed mb-3">
+        <p className="text-sm text-stone leading-relaxed mb-3">
           {project.description}
         </p>
-        <span className="text-sm text-accent font-[family-name:var(--font-mono)] group-hover:underline">
+        <span className="text-sm text-teal group-hover:underline">
           View Case Study →
         </span>
       </div>

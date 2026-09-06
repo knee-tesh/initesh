@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Medallion from '@/components/shared/medallion';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -59,12 +60,12 @@ export default function ChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {isOpen && (
-        <div className="mb-3 w-[320px] h-[480px] bg-surface border border-border rounded-xl shadow-2xl flex flex-col overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-            <h3 className="text-sm font-semibold text-text font-[family-name:var(--font-mono)]">Ask Nitesh</h3>
+        <div className="mb-3 w-[320px] h-[480px] bg-linen border border-hem rounded-xl shadow-2xl flex flex-col overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-hem">
+            <h3 className="text-sm font-semibold text-ink font-[family-name:var(--font-script)]">Ask Nitesh</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-muted hover:text-text transition-colors text-sm"
+              className="text-stone hover:text-teal transition-colors text-sm"
             >
               ✕
             </button>
@@ -76,8 +77,8 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[80%] px-3 py-2 rounded-lg text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-accent text-void rounded-br-sm'
-                      : 'bg-card text-text rounded-bl-sm'
+                      ? 'bg-terracotta text-linen rounded-br-sm'
+                      : 'bg-paper text-ink border border-hem rounded-bl-sm'
                   }`}
                 >
                   {msg.content}
@@ -86,7 +87,7 @@ export default function ChatWidget() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-card text-text px-3 py-2 rounded-lg rounded-bl-sm text-sm text-muted">
+                <div className="bg-paper text-ink border border-hem px-3 py-2 rounded-lg rounded-bl-sm text-sm text-stone">
                   Thinking...
                 </div>
               </div>
@@ -94,7 +95,7 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t border-border px-4 py-3">
+          <div className="border-t border-hem px-4 py-3">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -103,12 +104,12 @@ export default function ChatWidget() {
                 onKeyDown={handleKeyDown}
                 placeholder="Ask a question..."
                 disabled={isLoading}
-                className="flex-1 bg-card border border-border rounded-lg px-3 py-2 text-sm text-text placeholder-muted outline-none focus:border-accent transition-colors disabled:opacity-50"
+                className="flex-1 bg-paper border border-hem rounded-lg px-3 py-2 text-sm text-ink placeholder-stone outline-none focus:border-terracotta transition-colors disabled:opacity-50"
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
-                className="bg-accent text-void px-3 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="bg-terracotta text-linen px-3 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 Send
               </button>
@@ -119,10 +120,14 @@ export default function ChatWidget() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-11 h-11 bg-accent text-void rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity text-lg"
+        className="w-11 h-11 bg-terracotta text-linen rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity"
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
-        {isOpen ? '✕' : '💬'}
+        {isOpen ? '✕' : (
+          <Medallion className="w-8 h-8 text-linen">
+            <span className="w-1.5 h-1.5 rounded-full bg-linen" />
+          </Medallion>
+        )}
       </button>
     </div>
   );

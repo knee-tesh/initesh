@@ -2,6 +2,8 @@
  * Tests for POST /api/queries endpoint
  */
 
+import { NextRequest } from 'next/server';
+
 jest.mock('@libsql/client', () => ({
   createClient: jest.fn().mockReturnValue({ execute: jest.fn().mockResolvedValue({ rows: [] }) }),
 }));
@@ -21,7 +23,7 @@ describe('POST /api/queries', () => {
   it('rejects empty name', async () => {
     const { POST } = await import('@/app/api/queries/route');
 
-    const request = new Request('http://localhost:3000/api/queries', {
+    const request = new NextRequest('http://localhost:3000/api/queries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: '', email: 'test@test.com', message: 'A valid message here with ten chars' }),
@@ -36,7 +38,7 @@ describe('POST /api/queries', () => {
   it('rejects invalid email', async () => {
     const { POST } = await import('@/app/api/queries/route');
 
-    const request = new Request('http://localhost:3000/api/queries', {
+    const request = new NextRequest('http://localhost:3000/api/queries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: 'John', email: 'not-an-email', message: 'A valid message here with ten chars' }),
@@ -51,7 +53,7 @@ describe('POST /api/queries', () => {
   it('rejects short message', async () => {
     const { POST } = await import('@/app/api/queries/route');
 
-    const request = new Request('http://localhost:3000/api/queries', {
+    const request = new NextRequest('http://localhost:3000/api/queries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: 'John', email: 'test@test.com', message: 'Short' }),
@@ -66,7 +68,7 @@ describe('POST /api/queries', () => {
   it('accepts valid query submission', async () => {
     const { POST } = await import('@/app/api/queries/route');
 
-    const request = new Request('http://localhost:3000/api/queries', {
+    const request = new NextRequest('http://localhost:3000/api/queries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

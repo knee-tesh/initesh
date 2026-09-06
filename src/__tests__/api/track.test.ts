@@ -1,3 +1,5 @@
+import { NextRequest } from 'next/server';
+
 jest.mock('@libsql/client', () => ({
   createClient: jest.fn().mockReturnValue({ execute: jest.fn().mockResolvedValue({ rows: [] }) }),
 }));
@@ -22,7 +24,7 @@ describe('POST /api/track', () => {
   it('returns 400 for invalid page', async () => {
     const { POST } = await import('@/app/api/track/route');
 
-    const request = new Request('http://localhost:3000/api/track', {
+    const request = new NextRequest('http://localhost:3000/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ page: '/invalid-page', referrer: null, userAgent: 'test' }),
@@ -35,7 +37,7 @@ describe('POST /api/track', () => {
   it('returns 204 for valid tracking data', async () => {
     const { POST } = await import('@/app/api/track/route');
 
-    const request = new Request('http://localhost:3000/api/track', {
+    const request = new NextRequest('http://localhost:3000/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ page: '/skills', referrer: null, userAgent: 'test' }),

@@ -1,20 +1,36 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-void: #0c0e12;
-  --color-surface: #13161c;
-  --color-card: #1a1e26;
-  --color-text: #c8cdd6;
-  --color-muted: #6b7280;
-  --color-border: #1e222a;
-  --color-accent: #6c9cfc;
-  --color-mint: #4ade80;
-  --color-lavender: #c084fc;
-  --color-amber: #fb923c;
+  --color-paper: #f7f1e4;
+  --color-linen: #fdf8ec;
+  --color-ink: #3a2a1c;
+  --color-stone: #6f6048;
+  --color-hem: #e2d3b4;
+  --color-terracotta: #b8491f;
+  --color-teal: #235a4a;
+  --color-gold: #d99a1f;
+  --color-blush: #f3d9c3;
 
-  --font-display: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, monospace;
+  --color-void: var(--color-paper);
+  --color-surface: var(--color-linen);
+  --color-card: var(--color-linen);
+  --color-text: var(--color-ink);
+  --color-muted: var(--color-stone);
+  --color-border: var(--color-hem);
+  --color-accent: var(--color-terracotta);
+  --color-mint: var(--color-gold);
+  --color-lavender: var(--color-blush);
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
+  --font-script: 'Kalam', 'Segoe Script', cursive;
+  --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -26,26 +42,37 @@
 }
 
 body {
-  background: var(--color-void);
-  color: var(--color-text);
+  background-color: var(--color-paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  color: var(--color-ink);
   font-family: var(--font-body);
 }
 
+@layer components {
+  .stitch-card {
+    background: var(--color-linen);
+    border: 1px solid var(--color-hem);
+    border-radius: 0.5rem;
+    box-shadow: inset 0 0 0 1px var(--color-blush);
+  }
+}
+
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-void);
+  background: var(--color-terracotta);
+  color: var(--color-linen);
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-teal);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-teal);
   outline-offset: 2px;
 }

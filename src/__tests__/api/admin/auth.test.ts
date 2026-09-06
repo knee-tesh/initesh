@@ -2,6 +2,8 @@
  * Tests for POST /api/admin/auth endpoint
  */
 
+import { NextRequest } from 'next/server';
+
 jest.mock('next/headers', () => ({
   cookies: jest.fn().mockResolvedValue({
     set: jest.fn(),
@@ -30,7 +32,7 @@ describe('POST /api/admin/auth', () => {
     process.env.ADMIN_PASSWORD = 'correct-password';
     const { POST } = await import('@/app/api/admin/auth/route');
 
-    const request = new Request('http://localhost:3000/api/admin/auth', {
+    const request = new NextRequest('http://localhost:3000/api/admin/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: 'wrong' }),
@@ -44,7 +46,7 @@ describe('POST /api/admin/auth', () => {
     process.env.ADMIN_PASSWORD = 'correct-password';
     const { POST } = await import('@/app/api/admin/auth/route');
 
-    const request = new Request('http://localhost:3000/api/admin/auth', {
+    const request = new NextRequest('http://localhost:3000/api/admin/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: 'correct-password' }),

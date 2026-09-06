@@ -7,15 +7,15 @@ type BreadcrumbItem = {
 
 export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav className="flex items-center gap-2 text-xs font-[family-name:var(--font-mono)] text-muted mb-6">
-      <Link href="/" className="hover:text-accent transition-colors">$</Link>
+    <nav className="flex items-center gap-2 text-sm text-stone mb-6">
+      <Link href="/" className="hover:text-teal transition-colors">Home</Link>
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-2">
-          <span className="text-border">/</span>
+          <span className="text-gold">›</span>
           {item.href ? (
-            <Link href={item.href} className="hover:text-accent transition-colors">{item.label}</Link>
+            <Link href={item.href} className="hover:text-teal transition-colors">{item.label}</Link>
           ) : (
-            <span className="text-text">{item.label}</span>
+            <span className="text-ink">{item.label}</span>
           )}
         </span>
       ))}

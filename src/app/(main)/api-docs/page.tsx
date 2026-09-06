@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import TerminalWindow from "@/components/shared/terminal-window";
 import AdminLogin from '@/components/admin/admin-login';
 
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
@@ -25,10 +24,10 @@ type Endpoint = {
 };
 
 const METHOD_COLORS: Record<HttpMethod, string> = {
-  GET: "text-emerald-400",
-  POST: "text-amber-400",
-  PATCH: "text-sky-400",
-  DELETE: "text-red-400",
+  GET: "text-emerald-700",
+  POST: "text-amber-700",
+  PATCH: "text-sky-700",
+  DELETE: "text-red-700",
 };
 
 const PUBLIC_ENDPOINTS: Endpoint[] = [
@@ -163,32 +162,32 @@ const ADMIN_ENDPOINTS: Endpoint[] = [
 
 function EndpointCard({ endpoint }: { endpoint: Endpoint }) {
   return (
-    <div className="border border-border rounded-md p-4 space-y-3">
+    <div className="stitch-card p-4 space-y-3">
       <div className="flex items-center gap-3 flex-wrap">
-        <span className={`font-bold font-[family-name:var(--font-mono)] text-xs ${METHOD_COLORS[endpoint.method]}`}>
+        <span className={`font-bold font-[family-name:var(--font-code)] text-xs ${METHOD_COLORS[endpoint.method]}`}>
           {endpoint.method}
         </span>
-        <code className="text-sm text-text font-[family-name:var(--font-mono)]">
+        <code className="text-sm text-text font-[family-name:var(--font-code)]">
           {endpoint.path}
         </code>
         {endpoint.auth && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-400/10 text-amber-400 font-[family-name:var(--font-mono)]">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-blush text-teal font-[family-name:var(--font-script)]">
             AUTH
           </span>
         )}
       </div>
-      <p className="text-sm text-muted">{endpoint.description}</p>
+      <p className="text-sm text-stone">{endpoint.description}</p>
 
       {endpoint.body && endpoint.body.length > 0 && (
         <div>
-          <h4 className="text-xs font-bold text-text mb-2 font-[family-name:var(--font-mono)]">Request Body</h4>
+          <h4 className="text-xs font-bold text-text mb-2 font-[family-name:var(--font-code)]">Request Body</h4>
           <div className="space-y-1">
             {endpoint.body.map((param) => (
-              <div key={param.name} className="flex gap-2 text-xs font-[family-name:var(--font-mono)]">
-                <span className="text-sky-400">{param.name}</span>
-                <span className="text-muted">{param.type}</span>
-                {param.required && <span className="text-red-400">*</span>}
-                <span className="text-muted/60 hidden sm:inline">— {param.description}</span>
+              <div key={param.name} className="flex gap-2 text-xs font-[family-name:var(--font-code)]">
+                <span className="text-sky-700">{param.name}</span>
+                <span className="text-stone/70">{param.type}</span>
+                {param.required && <span className="text-red-700">*</span>}
+                <span className="text-stone/70 hidden sm:inline">— {param.description}</span>
               </div>
             ))}
           </div>
@@ -197,14 +196,14 @@ function EndpointCard({ endpoint }: { endpoint: Endpoint }) {
 
       {endpoint.query && endpoint.query.length > 0 && (
         <div>
-          <h4 className="text-xs font-bold text-text mb-2 font-[family-name:var(--font-mono)]">Query Parameters</h4>
+          <h4 className="text-xs font-bold text-text mb-2 font-[family-name:var(--font-code)]">Query Parameters</h4>
           <div className="space-y-1">
             {endpoint.query.map((param) => (
-              <div key={param.name} className="flex gap-2 text-xs font-[family-name:var(--font-mono)]">
-                <span className="text-sky-400">{param.name}</span>
-                <span className="text-muted">{param.type}</span>
-                {param.required && <span className="text-red-400">*</span>}
-                <span className="text-muted/60 hidden sm:inline">— {param.description}</span>
+              <div key={param.name} className="flex gap-2 text-xs font-[family-name:var(--font-code)]">
+                <span className="text-sky-700">{param.name}</span>
+                <span className="text-stone/70">{param.type}</span>
+                {param.required && <span className="text-red-700">*</span>}
+                <span className="text-stone/70 hidden sm:inline">— {param.description}</span>
               </div>
             ))}
           </div>
@@ -212,12 +211,12 @@ function EndpointCard({ endpoint }: { endpoint: Endpoint }) {
       )}
 
       <div>
-        <h4 className="text-xs font-bold text-text mb-1 font-[family-name:var(--font-mono)]">Response</h4>
-        <code className="text-xs text-muted font-[family-name:var(--font-mono)]">{endpoint.response}</code>
+        <h4 className="text-xs font-bold text-text mb-1 font-[family-name:var(--font-code)]">Response</h4>
+        <code className="text-xs text-stone/70 font-[family-name:var(--font-code)]">{endpoint.response}</code>
       </div>
 
       {endpoint.rateLimit && (
-        <p className="text-xs text-amber-400/80 font-[family-name:var(--font-mono)]">Rate limit: {endpoint.rateLimit}</p>
+        <p className="text-xs text-amber-700/80 font-[family-name:var(--font-code)]">Rate limit: {endpoint.rateLimit}</p>
       )}
     </div>
   );
@@ -239,7 +238,7 @@ export default function ApiDocsPage() {
   if (checking) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <p className="text-sm" style={{ color: 'var(--muted)' }}>Verifying access...</p>
+        <p className="text-sm" style={{ color: 'var(--color-stone)' }}>Verifying access...</p>
       </div>
     );
   }
@@ -254,48 +253,44 @@ export default function ApiDocsPage() {
 
   return (
     <div className="max-w-[640px]">
-      <h1 className="text-2xl md:text-3xl font-bold text-text mb-2 font-[family-name:var(--font-display)]">
+      <h1 className="text-2xl md:text-3xl font-bold text-ink mb-2 font-[family-name:var(--font-display)]">
         API Documentation
       </h1>
-      <p className="text-sm text-muted mb-8 font-[family-name:var(--font-mono)]">
+      <p className="text-sm text-stone mb-8 font-[family-name:var(--font-script)]">
         All available REST endpoints for this portfolio site.
       </p>
 
       <div className="space-y-10">
-        <section>
-          <TerminalWindow title="api docs --public">
+        <section className="stitch-card p-6">
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-text font-[family-name:var(--font-script)]">
+              Public Endpoints
+            </h2>
+            <p className="text-xs text-stone font-[family-name:var(--font-script)]">
+              No authentication required. Rate limits may apply.
+            </p>
             <div className="space-y-4">
-              <h2 className="text-lg font-bold text-text font-[family-name:var(--font-mono)]">
-                <span className="text-emerald-400">$</span> Public Endpoints
-              </h2>
-              <p className="text-xs text-muted font-[family-name:var(--font-mono)]">
-                No authentication required. Rate limits may apply.
-              </p>
-              <div className="space-y-4">
-                {PUBLIC_ENDPOINTS.map((endpoint) => (
-                  <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
-                ))}
-              </div>
+              {PUBLIC_ENDPOINTS.map((endpoint) => (
+                <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
+              ))}
             </div>
-          </TerminalWindow>
+          </div>
         </section>
 
-        <section>
-          <TerminalWindow title="api docs --admin">
+        <section className="stitch-card p-6">
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-text font-[family-name:var(--font-script)]">
+              Admin Endpoints
+            </h2>
+            <p className="text-xs text-stone font-[family-name:var(--font-script)]">
+              Requires valid session cookie. Login via /api/admin/auth first.
+            </p>
             <div className="space-y-4">
-              <h2 className="text-lg font-bold text-text font-[family-name:var(--font-mono)]">
-                <span className="text-amber-400">$</span> Admin Endpoints
-              </h2>
-              <p className="text-xs text-muted font-[family-name:var(--font-mono)]">
-                Requires valid session cookie. Login via /api/admin/auth first.
-              </p>
-              <div className="space-y-4">
-                {ADMIN_ENDPOINTS.map((endpoint) => (
-                  <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
-                ))}
-              </div>
+              {ADMIN_ENDPOINTS.map((endpoint) => (
+                <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
+              ))}
             </div>
-          </TerminalWindow>
+          </div>
         </section>
       </div>
     </div>

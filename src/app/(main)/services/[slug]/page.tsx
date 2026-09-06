@@ -17,22 +17,22 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
     <div>
       <Breadcrumb items={[{ label: "Services", href: "/services" }, { label: service.title }]} />
 
-      <h1 className="text-2xl md:text-3xl font-bold text-text mb-3 font-[family-name:var(--font-display)]">
+      <h1 className="text-2xl md:text-3xl font-bold text-ink mb-3 font-[family-name:var(--font-display)]">
         {service.title}
       </h1>
-      <p className="text-muted leading-relaxed mb-8 max-w-[600px]">
+      <p className="text-stone leading-relaxed mb-8 max-w-[600px]">
         {service.description}
       </p>
 
       {service.included && (
-        <div className="bg-surface border border-border rounded-lg p-6 mb-8">
-          <h2 className="text-base font-semibold text-text mb-4 font-[family-name:var(--font-display)]">
+        <div className="stitch-card p-6 mb-8">
+          <h2 className="text-base font-semibold text-ink mb-4 font-[family-name:var(--font-display)]">
             What&apos;s included:
           </h2>
           <ul className="space-y-3">
             {service.included.map((item: string, i: number) => (
-              <li key={i} className="flex items-start gap-3 text-sm text-muted">
-                <span className="text-mint mt-0.5">✓</span>
+              <li key={i} className="flex items-start gap-3 text-sm text-stone">
+                <span className="text-gold mt-0.5">✓</span>
                 {item}
               </li>
             ))}
@@ -40,20 +40,20 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
       )}
 
-      <div className="bg-gradient-to-br from-surface to-card border border-accent/20 rounded-lg p-8 text-center">
-        <h3 className="text-lg font-semibold text-text mb-2 font-[family-name:var(--font-display)]">
+      <div className="stitch-card p-8 text-center">
+        <h3 className="text-lg font-semibold text-ink mb-2 font-[family-name:var(--font-display)]">
           Interested in this service?
         </h3>
-        <p className="text-sm text-muted mb-6">
+        <p className="text-sm text-stone mb-6">
           Book a free 15-min discovery call to discuss your needs. Pricing shared during the call.
         </p>
         <Link
           href="/contact"
-          className="inline-flex bg-accent text-void px-6 py-3 rounded-md text-sm font-semibold font-[family-name:var(--font-mono)] hover:opacity-90 transition-opacity"
+          className="inline-flex bg-terracotta text-linen px-6 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
         >
           Book Discovery Call →
         </Link>
-        <p className="text-xs text-muted mt-3">No commitment · Response within 24 hours</p>
+        <p className="text-xs text-stone mt-3">No commitment · Response within 24 hours</p>
       </div>
     </div>
   );
