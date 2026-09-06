@@ -6,10 +6,11 @@ import { usePathname } from 'next/navigation';
 export function useAnalytics() {
   const pathname = usePathname();
   const sessionId = useRef<string>(crypto.randomUUID());
-  const pageLoadTime = useRef<number>(Date.now());
+  const pageLoadTime = useRef<number>(0);
   const maxScrollDepth = useRef<number>(0);
 
   useEffect(() => {
+    pageLoadTime.current = Date.now();
     const referrer = document.referrer;
 
     const handleScroll = () => {
