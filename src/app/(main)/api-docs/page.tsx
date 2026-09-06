@@ -171,7 +171,7 @@ function EndpointCard({ endpoint }: { endpoint: Endpoint }) {
           {endpoint.path}
         </code>
         {endpoint.auth && (
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-blush text-teal font-[family-name:var(--font-code)]">
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-blush text-teal font-[family-name:var(--font-script)]">
             AUTH
           </span>
         )}
@@ -256,45 +256,41 @@ export default function ApiDocsPage() {
       <h1 className="text-2xl md:text-3xl font-bold text-ink mb-2 font-[family-name:var(--font-display)]">
         API Documentation
       </h1>
-      <p className="text-sm text-stone mb-8 font-[family-name:var(--font-code)]">
+      <p className="text-sm text-stone mb-8 font-[family-name:var(--font-script)]">
         All available REST endpoints for this portfolio site.
       </p>
 
       <div className="space-y-10">
-        <section>
-          <section className="stitch-card p-6">
+        <section className="stitch-card p-6">
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-text font-[family-name:var(--font-script)]">
+              Public Endpoints
+            </h2>
+            <p className="text-xs text-stone font-[family-name:var(--font-script)]">
+              No authentication required. Rate limits may apply.
+            </p>
             <div className="space-y-4">
-              <h2 className="text-lg font-bold text-text font-[family-name:var(--font-code)]">
-                Public Endpoints
-              </h2>
-              <p className="text-xs text-stone font-[family-name:var(--font-code)]">
-                No authentication required. Rate limits may apply.
-              </p>
-              <div className="space-y-4">
-                {PUBLIC_ENDPOINTS.map((endpoint) => (
-                  <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
-                ))}
-              </div>
+              {PUBLIC_ENDPOINTS.map((endpoint) => (
+                <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
+              ))}
             </div>
-          </section>
+          </div>
         </section>
 
-        <section>
-          <section className="stitch-card p-6">
+        <section className="stitch-card p-6">
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-text font-[family-name:var(--font-script)]">
+              Admin Endpoints
+            </h2>
+            <p className="text-xs text-stone font-[family-name:var(--font-script)]">
+              Requires valid session cookie. Login via /api/admin/auth first.
+            </p>
             <div className="space-y-4">
-              <h2 className="text-lg font-bold text-text font-[family-name:var(--font-code)]">
-                Admin Endpoints
-              </h2>
-              <p className="text-xs text-stone font-[family-name:var(--font-code)]">
-                Requires valid session cookie. Login via /api/admin/auth first.
-              </p>
-              <div className="space-y-4">
-                {ADMIN_ENDPOINTS.map((endpoint) => (
-                  <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
-                ))}
-              </div>
+              {ADMIN_ENDPOINTS.map((endpoint) => (
+                <EndpointCard key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />
+              ))}
             </div>
-          </section>
+          </div>
         </section>
       </div>
     </div>
