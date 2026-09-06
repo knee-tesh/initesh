@@ -80,9 +80,6 @@ export async function POST(request: NextRequest) {
     };
 
     ws.onerror = () => {
-      if (!started) {
-        resolve(NextResponse.json({ error: 'AI service error' }, { status: 502 }));
-      }
       finish();
     };
     ws.onclose = () => {
