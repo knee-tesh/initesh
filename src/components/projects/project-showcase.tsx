@@ -96,7 +96,7 @@ export default function ProjectShowcase({ project }: { project: Project }) {
                       />
                     </div>
                     {screenshots.length > 1 && (
-                      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-2 bg-background/80 backdrop-blur-sm">
+                      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-2 bg-paper/80 backdrop-blur-sm">
                         <button
                           onClick={() =>
                             setCurrentScreenshot((prev) =>

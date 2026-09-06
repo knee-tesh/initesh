@@ -95,7 +95,7 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t border-border px-4 py-3">
+          <div className="border-t border-hem px-4 py-3">
             <div className="flex gap-2">
               <input
                 type="text"

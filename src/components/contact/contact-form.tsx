@@ -47,7 +47,7 @@ export default function ContactForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-terracotta text-linen py-2.5 rounded-full text-sm font-semibold"
+          className="w-full bg-terracotta text-linen py-2.5 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
         >
           Send Message
         </button>
