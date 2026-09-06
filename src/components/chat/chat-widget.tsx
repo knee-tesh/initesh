@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Medallion from '@/components/shared/medallion';
 import { createSseState, parseSseChunk } from '@/lib/sse';
 import { parseTourTag } from '@/lib/tour-tag';
+import { speak, stopSpeaking, supportTts } from '@/lib/tts';
+import SpeakingBars from '@/components/chat/speaking-bars';
 import { quickQuestions } from '@/data/qaData';
 
 const PAGE_MAP: Record<string, { label: string; href: string }> = {
@@ -30,6 +32,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [speakingIndex, setSpeakingIndex] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,7 +42,11 @@ export default function ChatWidget() {
   useEffect(() => {
     if (!isOpen) return;
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        stopSpeaking();
+        setSpeakingIndex(null);
+      }
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -54,6 +61,21 @@ export default function ChatWidget() {
       }
       return copy;
     });
+  }
+
+  async function toggleSpeak(i: number, rawText: string) {
+    if (speakingIndex === i) {
+      stopSpeaking();
+      setSpeakingIndex(null);
+      return;
+    }
+    const text = parseTourTag(rawText).clean;
+    setSpeakingIndex(i);
+    try {
+      await speak(text, { onEnd: () => setSpeakingIndex(null) });
+    } catch {
+      setSpeakingIndex(null);
+    }
   }
 
   async function handleSend(question?: string) {
@@ -157,6 +179,15 @@ export default function ChatWidget() {
                     )}
                   </div>
                 </div>
+                {supportTts() && msg.role === 'assistant' && msg.content && (
+                  <button
+                    onClick={() => toggleSpeak(i, msg.content)}
+                    className="mt-2 text-xs text-stone hover:text-teal transition-colors"
+                    aria-label={speakingIndex === i ? 'Stop reading' : 'Read reply aloud'}
+                  >
+                    {speakingIndex === i ? <SpeakingBars /> : '▶ Speak'}
+                  </button>
+                )}
                 {msg.role === 'assistant' && msg.tour && (
                   <button
                     onClick={() => router.push(PAGE_MAP[msg.tour!.slug].href)}
