@@ -170,7 +170,7 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {messages.length === 1 && (
+          {messages.length === 1 && !isStreaming && !isLoading && (
             <div className="px-4 pt-2 flex flex-wrap gap-1.5">
               {quickQuestions.map(q => (
                 <button
