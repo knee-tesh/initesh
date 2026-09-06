@@ -15,17 +15,17 @@ export default function ServiceCard({ service }: { service: any }) {
   return (
     <Link
       href={`/services/${service.id}`}
-      className="block bg-surface border border-border rounded-lg p-5 hover:border-border transition-colors group"
+      className="stitch-card p-5 hover:border-teal transition-colors group block"
     >
-      <h3 className="text-base font-semibold text-text mb-2 font-[family-name:var(--font-display)]">
+      <h3 className="text-base font-semibold text-ink mb-2 font-[family-name:var(--font-display)]">
         {service.title}
       </h3>
-      <p className="text-sm text-muted leading-relaxed mb-3">
+      <p className="text-sm text-stone leading-relaxed mb-3">
         {service.description}
       </p>
       <div className="flex items-center justify-between">
         <Tag label={service.tier.toUpperCase()} color={color} />
-        <span className="text-sm text-accent font-[family-name:var(--font-mono)] group-hover:underline">
+        <span className="text-sm text-teal group-hover:underline">
           Learn more →
         </span>
       </div>
