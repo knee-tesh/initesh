@@ -1,3 +1,5 @@
+'use client';
+
 import CtaButton from "@/components/shared/cta-button";
 import Garland from "@/components/shared/garland";
 import Medallion from "@/components/shared/medallion";
