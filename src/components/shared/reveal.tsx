@@ -12,7 +12,7 @@ export default function Reveal({ children, className = '', delay = 0 }: {
     <div
       ref={ref}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-      className={`${className} transition-all duration-500 ease-out ${
+      className={`${className} transition-all duration-[400ms] ease-out ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
       }`}
     >
