@@ -1,14 +1,22 @@
+'use client';
+
 import CtaButton from "@/components/shared/cta-button";
 import Garland from "@/components/shared/garland";
 import Medallion from "@/components/shared/medallion";
+import { useInView } from "@/lib/use-in-view";
+import { useCountUp } from "@/lib/use-count-up";
 
-const stats = [
-  { value: "10+", label: "Years" },
-  { value: "50+", label: "Projects" },
-  { value: "Oracle", label: "Certified" },
+const stats: Array<{ label: string } & ({ target: number } | { text: string })> = [
+  { target: 10, label: "Years" },
+  { target: 50, label: "Projects" },
+  { text: "Oracle", label: "Certified" },
 ];
 
 export default function Hero() {
+  const { ref, inView } = useInView<HTMLDivElement>({ once: true });
+  const years = useCountUp(10, { active: inView });
+  const projects = useCountUp(50, { active: inView });
+
   return (
     <section className="py-14 md:py-20 text-center relative">
       <div className="absolute inset-x-0 top-0 flex justify-center">
@@ -34,12 +42,12 @@ export default function Hero() {
         <CtaButton href="/projects" variant="secondary">View My Work</CtaButton>
       </div>
 
-      <div className="flex items-center justify-center gap-4 pt-8 border-t border-hem">
+      <div ref={ref} className="flex items-center justify-center gap-4 pt-8 border-t border-hem">
         {stats.map((stat) => (
           <div key={stat.label} className="flex items-center gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-terracotta font-[family-name:var(--font-display)]">
-                {stat.value}
+                {"target" in stat ? `${stat.target === 10 ? years : projects}+` : stat.text}
               </div>
               <div className="text-[11px] uppercase tracking-wider text-stone font-[family-name:var(--font-script)]">
                 {stat.label}
