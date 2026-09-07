@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Breadcrumb from "@/components/shared/breadcrumb";
 import ProjectShowcase from "@/components/projects/project-showcase";
+import ErrorBoundary from "@/components/shared/error-boundary";
 import projects from "@/data/projects.json";
 import type { Project } from "@/lib/types";
 
@@ -17,7 +18,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <div>
       <Breadcrumb items={[{ label: "Projects", href: "/projects" }, { label: project.title }]} />
-      <ProjectShowcase project={project} />
+      <ErrorBoundary><ProjectShowcase project={project} /></ErrorBoundary>
     </div>
   );
 }
