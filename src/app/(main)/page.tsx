@@ -3,16 +3,17 @@ import Ledger from "@/components/home/ledger";
 import ServicesTeaser from "@/components/home/services-teaser";
 import ProjectsGrid from "@/components/home/projects-grid";
 import MandalaDivider from "@/components/shared/mandala-divider";
+import Reveal from "@/components/shared/reveal";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       <MandalaDivider />
-      <Ledger />
+      <Reveal><Ledger /></Reveal>
       <MandalaDivider />
-      <ServicesTeaser />
-      <ProjectsGrid />
+      <Reveal><ServicesTeaser /></Reveal>
+      <Reveal><ProjectsGrid /></Reveal>
     </>
   );
 }
