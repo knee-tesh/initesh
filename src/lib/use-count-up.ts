@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 
 export function useCountUp(target: number, opts?: { duration?: number; active: boolean }): number {

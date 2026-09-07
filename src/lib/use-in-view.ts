@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
 export function useInView<T extends HTMLElement>(opts?: { once?: boolean }): {
