@@ -4,7 +4,7 @@ import Tag from "@/components/shared/tag";
 export default function ProjectCard({ project }: { project: any }) {
   return (
     <Link
-      href={`/projects/${project.id}`}
+      href={`/work/${project.id}`}
       className="stitch-card overflow-hidden group block"
       style={{ borderLeftWidth: "3px", borderLeftColor: project.brandColor }}
     >

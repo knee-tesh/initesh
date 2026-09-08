@@ -3,7 +3,7 @@ import contact from '@/data/contact.json';
 import { escapeHtml, validateContact } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
-  if (!process.env.MAILERSEND_TOKEN || !process.env.MAILERSEND_FROM) {
+  if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM) {
     return NextResponse.json({ error: 'Email is not configured' }, { status: 501 });
   }
 
@@ -26,15 +26,15 @@ export async function POST(request: NextRequest) {
   const text = `New Portfolio Contact\n\nName: ${name}\nEmail: ${email}\nCompany: ${company ?? '—'}\nMessage: ${message}`;
 
   try {
-    const resp = await fetch('https://api.mailersend.com/v1/email', {
+    const resp = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.MAILERSEND_TOKEN}`,
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: { email: process.env.MAILERSEND_FROM, name: process.env.MAILERSEND_FROM_NAME || 'Nitesh Portfolio' },
-        to: [{ email: contact.email }],
+        from: process.env.RESEND_FROM,
+        to: [contact.email],
         subject: `Portfolio Contact from ${name}${company ? ` — ${company}` : ''}`,
         text,
         html,
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     if (!resp.ok) {
       const errText = await resp.text();
-      console.error('MailerSend error:', resp.status, errText.slice(0, 500));
+      console.error('Resend error:', resp.status, errText.slice(0, 500));
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
     return NextResponse.json({ success: true });
