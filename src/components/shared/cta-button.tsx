@@ -7,10 +7,10 @@ type CtaButtonProps = {
 };
 
 export default function CtaButton({ href, variant = "primary", children }: CtaButtonProps) {
-  const base = "inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold transition-colors";
+  const base = "inline-flex items-center justify-center px-5 py-2.5 text-[11px] uppercase tracking-[0.16em] font-semibold transition-colors font-[family-name:var(--font-mono)]";
   const styles = {
-    primary: "bg-terracotta text-linen hover:opacity-90",
-    secondary: "border-2 border-teal text-teal hover:bg-blush/50",
+    primary: "bg-terracotta text-on-accent hover:bg-teal",
+    secondary: "border border-hem text-ink hover:border-terracotta hover:text-terracotta",
   };
 
   return (

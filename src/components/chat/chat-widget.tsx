@@ -165,7 +165,7 @@ export default function ChatWidget() {
                   <div
                     className={`max-w-[80%] px-3 py-2 rounded-lg text-sm leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-terracotta text-linen rounded-br-sm'
+                        ? 'bg-terracotta text-on-accent rounded-br-sm'
                         : 'bg-paper text-ink border border-hem rounded-bl-sm'
                     }`}
                   >
@@ -229,7 +229,7 @@ export default function ChatWidget() {
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim() || isLoading}
-                className="bg-terracotta text-linen px-3 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="bg-terracotta text-on-accent px-3 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 Send
               </button>
@@ -240,11 +240,11 @@ export default function ChatWidget() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-11 h-11 bg-terracotta text-linen rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity"
+        className="w-11 h-11 bg-terracotta text-on-accent rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-opacity"
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
         {isOpen ? '✕' : (
-          <Medallion className="w-8 h-8 text-linen">
+          <Medallion className="w-8 h-8 text-ink">
             <span className="w-1.5 h-1.5 rounded-full bg-linen" />
           </Medallion>
         )}

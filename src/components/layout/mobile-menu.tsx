@@ -15,7 +15,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
     <div className="fixed inset-0 z-[100] bg-void flex flex-col items-center justify-center gap-8">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-stone hover:text-teal"
+        className="absolute top-4 right-4 text-stone hover:text-terracotta"
         aria-label="Close menu"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -37,7 +37,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
       <Link
         href="/contact"
         onClick={onClose}
-        className="bg-terracotta text-linen px-6 py-3 rounded-full text-lg font-semibold"
+        className="bg-terracotta text-paper px-6 py-3 text-base uppercase tracking-[0.14em] font-semibold font-[family-name:var(--font-mono)]"
       >
         Book a Call →
       </Link>
