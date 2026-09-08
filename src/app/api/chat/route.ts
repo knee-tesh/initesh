@@ -97,6 +97,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: 'sarvam-105b',
         stream: true,
+        reasoning_effort: null,
         max_tokens: 500,
         temperature: 0.3,
         messages: [{ role: 'system', content: systemPrompt }, ...sanitized],
