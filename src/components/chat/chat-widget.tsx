@@ -11,9 +11,11 @@ import { quickQuestions } from '@/data/qaData';
 
 const PAGE_MAP: Record<string, { label: string; href: string }> = {
   home: { label: 'Home', href: '/' },
-  services: { label: 'Services', href: '/services' },
+  work: { label: 'Selected Work', href: '/work' },
+  architecture: { label: 'Architecture', href: '/architecture' },
+  experience: { label: 'Experience', href: '/experience' },
+  writing: { label: 'Writing', href: '/writing' },
   about: { label: 'About', href: '/about' },
-  projects: { label: 'Projects', href: '/projects' },
   contact: { label: 'Contact', href: '/contact' },
 };
 

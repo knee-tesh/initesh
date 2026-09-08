@@ -3,9 +3,12 @@
 import Link from "next/link";
 
 const links = [
-  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Architecture", href: "/architecture" },
+  { label: "Experience", href: "/experience" },
+  { label: "Writing", href: "/writing" },
   { label: "About", href: "/about" },
-  { label: "API Docs", href: "/api-docs" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {

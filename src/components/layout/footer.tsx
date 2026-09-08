@@ -9,7 +9,10 @@ export default function Footer() {
             Nitesh<span className="italic text-terracotta">.</span>
           </span>
           <div className="flex items-center gap-7">
-            <Link href="/services" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">Services</Link>
+            <Link href="/work" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">Work</Link>
+            <Link href="/architecture" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">Architecture</Link>
+            <Link href="/experience" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">Experience</Link>
+            <Link href="/writing" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">Writing</Link>
             <Link href="/about" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">About</Link>
             <Link href="/contact" className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink transition-colors font-[family-name:var(--font-mono)]">Contact</Link>
           </div>
