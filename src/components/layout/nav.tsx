@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Medallion from "@/components/shared/medallion";
 import MobileMenu from "./mobile-menu";
 
 const links = [
@@ -11,19 +10,23 @@ const links = [
   { label: "API Docs", href: "/api-docs" },
 ];
 
+function BrandMark() {
+  return (
+    <span className="w-2.5 h-2.5 bg-terracotta inline-block mr-2" aria-hidden />
+  );
+}
+
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-linen/80 backdrop-blur-md border-b border-hem">
-        <div className="max-w-[1100px] mx-auto px-4 md:px-6 lg:px-8 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Medallion className="w-6 h-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            </Medallion>
-            <span className="text-xl text-terracotta font-[family-name:var(--font-script)] leading-none pt-1">
-              Nitesh
+      <nav className="sticky top-0 z-50 bg-void/85 backdrop-blur-md border-b border-hem">
+        <div className="max-w-[1240px] mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <BrandMark />
+            <span className="text-[22px] text-ink font-[family-name:var(--font-display)] leading-none pt-0.5">
+              Nitesh<span className="italic text-terracotta">.</span>
             </span>
           </Link>
 
@@ -32,21 +35,21 @@ export default function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs uppercase tracking-wider text-stone hover:text-teal hover:underline underline-offset-4 transition-colors"
+                className="text-[11px] uppercase tracking-[0.16em] text-stone hover:text-ink hover:underline underline-offset-4 transition-colors font-[family-name:var(--font-mono)]"
               >
                 {link.label}
               </Link>
             ))}
             <Link
               href="/contact"
-              className="bg-terracotta text-linen px-4 py-1.5 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+              className="border border-terracotta text-terracotta px-4 py-2 text-[11px] uppercase tracking-[0.16em] font-semibold font-[family-name:var(--font-mono)] hover:bg-terracotta hover:text-paper transition-colors"
             >
               Book a Call →
             </Link>
           </div>
 
           <button
-            className="md:hidden text-terracotta hover:text-teal"
+            className="md:hidden text-ink hover:text-terracotta"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >

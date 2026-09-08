@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-paper: #f7f1e4;
-  --color-linen: #fdf8ec;
-  --color-ink: #3a2a1c;
-  --color-stone: #6f6048;
-  --color-hem: #e2d3b4;
-  --color-terracotta: #b8491f;
-  --color-teal: #235a4a;
-  --color-gold: #d99a1f;
-  --color-blush: #f3d9c3;
+  --color-paper: #14161a;
+  --color-linen: #1b1e24;
+  --color-ink: #f2e9da;
+  --color-stone: #8e8b7f;
+  --color-hem: #2c3038;
+  --color-terracotta: #c85a2b;
+  --color-teal: #e8d5b8;
+  --color-gold: #c9a24b;
+  --color-blush: #23272f;
+  --color-on-accent: #14161a;
 
   --color-void: var(--color-paper);
   --color-surface: var(--color-linen);
@@ -21,11 +22,16 @@
   --color-mint: var(--color-gold);
   --color-lavender: var(--color-blush);
 
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
-  --font-script: 'Kalam', 'Segoe Script', cursive;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-script: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -36,6 +42,24 @@
 @keyframes speakingBars {
   0%, 100% { transform: scaleY(0.4); }
   50% { transform: scaleY(1); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+.pulse-clay {
+  animation: pulseClay 2s ease-in-out infinite;
+}
+
+@keyframes pulseClay {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 90, 43, 0.28); }
+  50% { box-shadow: 0 0 0 7px rgba(200, 90, 43, 0.06); }
 }
 
 .speaking-bar {
@@ -63,13 +87,13 @@ body {
     background: var(--color-linen);
     border: 1px solid var(--color-hem);
     border-radius: 0.5rem;
-    box-shadow: inset 0 0 0 1px var(--color-blush);
+    box-shadow: inset 0 0 0 1px rgba(232, 213, 184, 0.05);
   }
 }
 
 ::selection {
   background: var(--color-terracotta);
-  color: var(--color-linen);
+  color: var(--color-paper);
 }
 
 a {

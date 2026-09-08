@@ -102,7 +102,7 @@ export default function GuestbookForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="keyboard-nav bg-terracotta text-linen px-4 py-2 text-sm rounded-sm disabled:opacity-50 font-semibold hover:opacity-90 transition-opacity"
+        className="keyboard-nav bg-terracotta text-on-accent px-4 py-2 text-sm rounded-sm disabled:opacity-50 font-semibold hover:opacity-90 transition-opacity"
       >
         {status === 'submitting' ? 'Sending...' : 'Submit Query'}
       </button>

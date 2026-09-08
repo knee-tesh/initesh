@@ -49,7 +49,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </p>
         <Link
           href="/contact"
-          className="inline-flex bg-terracotta text-linen px-6 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+          className="inline-flex bg-terracotta text-on-accent px-6 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
         >
           Book Discovery Call →
         </Link>

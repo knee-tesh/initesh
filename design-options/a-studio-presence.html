@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Studio Presence — Design Option A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Archivo:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:#F3EDE3; --card:#FAF6ED; --ink:#1E1B16;
+    --muted:#6F6859; --line:#D8CFBC;
+    --clay:#B4531F; --clay-deep:#8F3D14; --olive:#5A6647; --brass:#A9853E;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--paper);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    color:var(--ink); font-family:'Archivo',sans-serif; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1280px; margin:0 auto; padding:0 40px; }
+  .serif { font-family:'Fraunces',serif; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+
+  /* top bar */
+  .topbar { position:fixed; inset:0 0 auto 0; z-index:20; }
+  .topbar-in {
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; border-bottom:1px solid var(--line);
+  }
+  .brand { display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--ink); }
+  .brand .nm { font-family:'Fraunces',serif; font-size:20px; font-weight:600; letter-spacing:.2px; }
+  .brand .ct { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; color:var(--muted); }
+  .topnav { display:flex; align-items:center; gap:30px; }
+  .topnav a { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+  .topnav a:hover { color:var(--clay); }
+  .topnav .now { color:var(--ink); }
+  .topnav .now span { color:var(--clay); }
+  .cta { background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; padding:10px 18px; border:1px solid var(--ink); text-decoration:none; }
+  .cta:hover { background:var(--clay); border-color:var(--clay); }
+
+  /* hero */
+  .hero { padding:150px 0 40px; }
+  .kicker { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); display:flex; align-items:center; gap:12px; margin-bottom:44px; }
+  .kicker::before { content:""; width:38px; height:1px; background:var(--clay); }
+  .hero h1 {
+    font-family:'Fraunces',serif; font-weight:400; letter-spacing:-.02em;
+    font-size:clamp(52px, 8.2vw, 124px); line-height:.98; color:var(--ink);
+    max-width:13ch;
+  }
+  .hero h1 .em { font-style:italic; font-weight:300; color:var(--clay); }
+  .hero-meta {
+    margin-top:60px; display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:1px solid var(--line); padding-top:20px;
+  }
+  .hero-meta p { max-width:340px; font-size:15px; color:var(--muted); line-height:1.6; }
+  .hero-meta .stats { display:flex; gap:36px; }
+  .stat .n { font-family:'Fraunces',serif; font-size:26px; color:var(--ink); }
+  .stat .l { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+
+  /* index */
+  .index { margin:90px 0 0; border-top:1px solid var(--ink); }
+  .idx-head { display:flex; justify-content:space-between; align-items:center; padding:26px 0 18px; }
+  .idx-head .t { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
+  .idx-head .n { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+  .entry {
+    display:grid; grid-template-columns:90px 1fr 250px auto; align-items:center; gap:24px;
+    border-top:1px solid var(--line); padding:30px 4px; text-decoration:none; color:var(--ink);
+    position:relative;
+  }
+  .entry:last-child { border-bottom:1px solid var(--line); }
+  .entry .ix { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); }
+  .entry .nm { font-family:'Fraunces',serif; font-size:clamp(26px,3.4vw,44px); font-weight:400; letter-spacing:-.01em; transition:transform .3s ease, color .3s ease; }
+  .entry .cat { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .entry .yr { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); }
+  .entry .thumb {
+    position:absolute; right:12%; top:50%; transform:translateY(-50%); width:220px; height:150px;
+    opacity:0; pointer-events:none; transition:opacity .35s ease, transform .35s ease;
+    background:linear-gradient(150deg,var(--olive),var(--clay-deep));
+    display:flex; align-items:center; justify-content:center; color:rgba(243,237,227,.9);
+    font-family:'Fraunces',serif; font-style:italic; font-size:15px;
+  }
+  .entry:hover .thumb { opacity:1; transform:translateY(-50%) rotate(-1.5deg); }
+  .entry:hover .nm { color:var(--clay); transform:translateX(6px); }
+
+  /* intro block */
+  .intro { margin:110px 0; display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+  .intro .gl { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--clay); margin-bottom:18px; }
+  .intro .tt { font-family:'Fraunces',serif; font-size:clamp(30px,4vw,54px); font-weight:400; line-height:1.05; letter-spacing:-.01em; }
+  .intro .tt em { font-style:italic; color:var(--olive); }
+  .intro .bd p { margin-bottom:18px; color:var(--muted); font-size:16px; line-height:1.7; }
+  .intro .bd .link { display:inline-block; margin-top:10px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--clay); text-decoration:none; border-bottom:1px solid var(--clay); padding-bottom:4px; }
+
+  /* services */
+  .srv-head { display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding:24px 0 10px; }
+  .srv-head .t { font-family:'Fraunces',serif; font-size:clamp(30px,4vw,52px); }
+  .srv-head .t em { font-style:italic; }
+  .srv-head .n { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); }
+  .srv { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line); }
+  .srv .item { padding:34px 34px 34px 0; border-bottom:1px solid var(--line); }
+  .srv .item:nth-child(odd) { border-right:1px solid var(--line); padding-right:34px; padding-left:0; }
+  .srv .item .no { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--brass); }
+  .srv .item h3 { font-family:'Fraunces',serif; font-size:26px; font-weight:500; margin:14px 0 8px; }
+  .srv .item p { color:var(--muted); font-size:14.5px; line-height:1.6; }
+
+  /* marquee */
+  .marquee { overflow:hidden; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:22px 0; margin:110px 0 0; white-space:nowrap; }
+  .marquee span { display:inline-block; font-family:'Fraunces',serif; font-style:italic; font-size:clamp(28px,4vw,52px); color:var(--clay); }
+  .marquee .m { color:var(--ink); font-style:normal; padding:0 22px; }
+  .marquee span.s { color:var(--olive); padding:0 22px; }
+
+  /* footer */
+  footer { display:flex; justify-content:space-between; align-items:center; padding:44px 0 60px; }
+  footer .sig { font-family:'Fraunces',serif; font-size:22px; }
+  footer .fl a { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; margin-left:26px; }
+  footer .fl a:hover { color:var(--clay); }
+  footer .cp { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); }
+
+  /* dock */
+  .dock {
+    position:fixed; left:50%; bottom:18px; transform:translateX(-50%); z-index:30;
+    display:flex; gap:4px; background:rgba(243,237,227,.85); backdrop-filter:blur(8px);
+    border:1px solid var(--line); border-radius:12px; padding:6px;
+  }
+  .dock a { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; padding:7px 13px; border-radius:8px; }
+  .dock a:hover { color:var(--ink); background:var(--card); }
+  .dock a.now { color:var(--clay); background:var(--card); }
+
+  @media (max-width:860px){
+    .wrap{padding:0 22px;} .hero{padding:120px 0 30px;}
+    .hero-meta{flex-direction:column; gap:24px; align-items:flex-start;}
+    .entry{grid-template-columns:60px 1fr auto;} .entry .cat{display:none;} .entry .thumb{display:none;}
+    .intro{grid-template-columns:1fr; gap:40px;} .srv{grid-template-columns:1fr;} .srv .item:nth-child(odd){border-right:none;}
+    footer{flex-direction:column; gap:16px;} .topnav a:not(.now){display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#"><span class="nm">Nitesh Tiwari</span><span class="ct">[ Bangalore, IN ]</span></a>
+    <nav class="topnav">
+      <a href="#" class="now">Index<span>.</span></a>
+      <a href="#">Services</a>
+      <a href="#">About</a>
+      <a class="cta" href="#">Book a Call →</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <div class="kicker">Portfolio · 2026 — Principal Fullstack Developer</div>
+  <h1>I build production systems that <span class="em">scale.</span></h1>
+  <div class="hero-meta">
+    <p>10+ years shipping serverless architecture, AI-driven workflows, and high-scale SaaS — quietly, precisely, and with taste.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">10+</div><div class="l">Years</div></div>
+      <div class="stat"><div class="n">50+</div><div class="l">Projects</div></div>
+      <div class="stat"><div class="n">Ora</div><div class="l">Certified</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="index wrap">
+  <div class="idx-head"><span class="t">Selected Work</span><span class="n">04 projects · 2021—2026</span></div>
+  <a class="entry" href="#"><span class="ix">01</span><span class="nm">GuardEye Enterprises</span><span class="cat">E-Commerce</span><span class="yr">2025</span><span class="thumb">GuardEye</span></a>
+  <a class="entry" href="#"><span class="ix">02</span><span class="nm">Aatmiya Foundation</span><span class="cat">Non-Profit</span><span class="yr">2024</span><span class="thumb">Aatmiya</span></a>
+  <a class="entry" href="#"><span class="ix">03</span><span class="nm">Neha Tiwari</span><span class="cat">Portfolio</span><span class="yr">2024</span><span class="thumb">Neha</span></a>
+  <a class="entry" href="#"><span class="ix">04</span><span class="nm">Piyush Tiwari</span><span class="cat">Portfolio</span><span class="yr">2023</span><span class="thumb">Piyush</span></a>
+</section>
+
+<section class="intro wrap">
+  <div>
+    <div class="gl">What I Do</div>
+    <div class="tt">Eight disciplines, <em>one desk.</em></div>
+  </div>
+  <div class="bd">
+    <p>Architecture audits, technical advisory, feature delivery, interim tech lead, AI workshops, interview coaching, portfolio reviews, mentoring — each treated like a small studio commission: scoped honestly, shipped clean.</p>
+    <p>Available for new engagements this quarter.</p>
+    <a class="link" href="#">Explore services →</a>
+  </div>
+</section>
+
+<section class="srv wrap">
+  <div class="srv-head"><span class="t">Full <em>Services</em></span><span class="n">[ 08 ]</span></div>
+  <div class="srv">
+    <div class="item"><span class="no">№ 01</span><h3>Code &amp; Architecture Audit</h3><p>Resilience reviews that surface the landmine before it ships.</p></div>
+    <div class="item"><span class="no">№ 02</span><h3>Technical Advisory</h3><p>Calm, opinionated counsel at the fork in the road.</p></div>
+    <div class="item"><span class="no">№ 03</span><h3>Feature Delivery</h3><p>Production systems shipped end-to-end.</p></div>
+    <div class="item"><span class="no">№ 04</span><h3>Interim Tech Lead</h3><p>Steady hands while you find the right captain.</p></div>
+  </div>
+</section>
+
+<div class="marquee">
+  <span>serverless <span class="m">✦</span> AI workflows <span class="m">✦</span> high-scale SaaS <span class="m">✦</span> architecture <span class="m">✦</span> Bangalore <span class="m">✦</span> production <span class="m">✦</span></span>
+</div>
+
+<footer class="wrap">
+  <span class="sig">Nitesh<span style="color:var(--clay)">.</span></span>
+  <div class="fl"><a href="#">Instagram</a><a href="#">GitHub</a><a href="#">LinkedIn</a></div>
+  <span class="cp">© 2026 · All systems go</span>
+</footer>
+
+<div class="dock">
+  <a href="#" class="now">Index</a><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a>
+</div>
+
+</body>
+</html>
