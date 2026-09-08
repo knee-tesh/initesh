@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ErrorBoundary from "@/components/shared/error-boundary";
+import ArchitectureDiagram from "@/components/architecture/architecture-diagram";
 import AtAGlance from "@/components/work/case-study/at-a-glance";
 import DecisionBlock from "@/components/work/case-study/decision-block";
 import FailureModeComponent from "@/components/work/case-study/failure-mode";
@@ -104,8 +105,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               {study.technologies.join(" · ")}
             </p>
           ) : null}
-          {/* ponytail: ArchitectureDiagram slots in during Task 10 */}
-          <Placeholder text="Architecture diagram — coming in Task 10." />
+          {/* TODO(content): diagram nodes will be tuned to real system topology when case-study content is verified */}
+          <ArchitectureDiagram />
         </Section>
 
         {/* Key Decisions */}
