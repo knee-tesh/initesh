@@ -9,7 +9,8 @@ export default function MoreWork() {
         {projects.map((project) => (
           <Link
             key={project.id}
-            href={`/work/${project.id}`}
+            href={project.liveUrl || `/work/${project.id}`}
+            {...(project.liveUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className="group block bg-surface border border-border rounded-lg p-4 hover:border-accent transition-colors duration-200"
             style={{ borderLeftWidth: "3px", borderLeftColor: project.brandColor }}
           >
@@ -17,7 +18,7 @@ export default function MoreWork() {
             <h4 className="mt-1 text-base font-semibold text-text">{project.title}</h4>
             <p className="mt-1 text-sm text-muted leading-relaxed">{project.description}</p>
             <span className="mt-2 inline-block text-sm text-accent group-hover:translate-x-1 transition-transform duration-200">
-              Read case study →
+              {project.liveUrl ? "View live site →" : "Read case study →"}
             </span>
           </Link>
         ))}
