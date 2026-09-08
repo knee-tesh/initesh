@@ -22,7 +22,7 @@ export default function ArchitecturePage() {
           onClick={() => setActive(null)}
           className={`px-3 py-1 rounded-full text-xs font-mono border transition-colors ${
             active === null
-              ? "bg-accent text-inverse border-accent"
+              ? "bg-accent text-void border-accent"
               : "border-border text-muted hover:text-text"
           }`}
         >
@@ -34,7 +34,7 @@ export default function ArchitecturePage() {
             onClick={() => setActive(active === f ? null : f)}
             className={`px-3 py-1 rounded-full text-xs font-mono border transition-colors ${
               active === f
-                ? "bg-accent text-inverse border-accent"
+                ? "bg-accent text-void border-accent"
                 : "border-border text-muted hover:text-text"
             }`}
           >

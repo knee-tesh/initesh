@@ -126,7 +126,7 @@ export default function ArchitectureDiagram() {
                 role="button"
                 tabIndex={0}
                 aria-label={n.label.replace("\n", " ")}
-                className="cursor-pointer outline-none"
+                className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-accent2"
                 onClick={() => setSelected(isSelected ? null : n.id)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
