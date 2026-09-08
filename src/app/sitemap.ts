@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
+import { baseUrl } from "@/lib/site";
 import { caseStudies } from "@/data/case-studies";
 import { rfcs } from "@/data/rfcs";
 import { articles } from "@/data/writing";
 
-const baseUrl = "https://nitesh.in";
 const today = new Date().toISOString();
 
 export default function sitemap(): MetadataRoute.Sitemap {
