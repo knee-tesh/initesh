@@ -1,5 +1,7 @@
 import Hero from "@/components/home/hero";
 import ImpactStrip from "@/components/home/impact-strip";
+import Leverage from "@/components/home/leverage";
+import Thesis from "@/components/home/thesis";
 import ErrorBoundary from "@/components/shared/error-boundary";
 import SectionHeading from "@/components/shared/section-heading";
 import ProjectCard from "@/components/work/project-card";
@@ -29,6 +31,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Thesis />
+      <Leverage />
     </ErrorBoundary>
   );
 }
