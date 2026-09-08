@@ -9,7 +9,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <SiteHeader onPalette={() => {}} />
-      <main className="max-w-[1100px] mx-auto px-4 md:px-6 lg:px-8 py-8">
+      <main className="max-w-[1240px] mx-auto px-6 py-8">
         {children}
       </main>
       <Footer />
