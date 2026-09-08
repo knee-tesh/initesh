@@ -1,29 +1,37 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-paper: #14161a;
-  --color-linen: #1b1e24;
-  --color-ink: #f2e9da;
-  --color-stone: #8e8b7f;
-  --color-hem: #2c3038;
-  --color-terracotta: #c85a2b;
-  --color-teal: #e8d5b8;
-  --color-gold: #c9a24b;
-  --color-blush: #23272f;
-  --color-on-accent: #14161a;
+  --color-bg: #0B0F19;
+  --color-surface: #151C2B;
+  --color-elevated: #1B2435;
+  --color-border: #273244;
+  --color-text: #F8FAFC;
+  --color-muted: #94A3B8;
+  --color-accent: #10B981;      /* emerald */
+  --color-accent2: #22D3EE;     /* cyan */
 
-  --color-void: var(--color-paper);
-  --color-surface: var(--color-linen);
-  --color-card: var(--color-linen);
-  --color-text: var(--color-ink);
-  --color-muted: var(--color-stone);
-  --color-border: var(--color-hem);
-  --color-accent: var(--color-terracotta);
-  --color-mint: var(--color-gold);
+  /* semantic aliases so existing components keep resolving */
+  --color-void: #0B0F19;
+  --color-paper: #0B0F19;
+  --color-linen: #151C2B;
+  --color-card: #1B2435;
+  --color-ink: #F8FAFC;
+  --color-stone: #94A3B8;
+  --color-hem: #273244;
+  --color-terracotta: #10B981;  /* legacy accent name -> emerald */
+  --color-teal: #22D3EE;        /* links/accents -> cyan */
+  --color-mint: #10B981;
+  --color-blush: #1B2435;
+  --color-on-accent: #0B0F19;
+  /* DO NOT delete --color-gold / --color-lavender: still referenced by
+     retained components (services-teaser, timeline, philosophy,
+     speaking-bars, project-showcase, breadcrumb use text-gold/bg-gold).
+     Re-map --color-gold to a muted accent-compatible value instead: */
+  --color-gold: #34D399;        /* emerald-300, keeps gold classes readable on dark */
   --color-lavender: var(--color-blush);
 
-  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-script: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -92,21 +100,10 @@ body {
 }
 
 ::selection {
-  background: var(--color-terracotta);
-  color: var(--color-paper);
+  background: var(--color-accent);
+  color: var(--color-void);
 }
 
-a {
-  color: var(--color-teal);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-a:focus-visible {
-  outline: 2px solid var(--color-teal);
-  outline-offset: 2px;
-}
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--color-accent2); outline-offset: 2px; }
