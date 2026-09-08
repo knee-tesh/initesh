@@ -1,3 +1,5 @@
+"use client";
+
 import SiteHeader from "@/components/layout/site-header";
 import Footer from "@/components/layout/footer";
 import ChatWidget from "@/components/chat/chat-widget";
