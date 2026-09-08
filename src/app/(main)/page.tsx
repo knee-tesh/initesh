@@ -1,7 +1,11 @@
+import ArchitectureExplorer from "@/components/home/architecture-explorer";
+import ExperiencePreview from "@/components/home/experience-preview";
+import FinalCta from "@/components/home/final-cta";
 import Hero from "@/components/home/hero";
 import ImpactStrip from "@/components/home/impact-strip";
 import Leverage from "@/components/home/leverage";
 import Thesis from "@/components/home/thesis";
+import WritingPreview from "@/components/home/writing-preview";
 import ErrorBoundary from "@/components/shared/error-boundary";
 import SectionHeading from "@/components/shared/section-heading";
 import ProjectCard from "@/components/work/project-card";
@@ -34,6 +38,10 @@ export default function HomePage() {
 
       <Thesis />
       <Leverage />
+      <ArchitectureExplorer />
+      <ExperiencePreview />
+      <WritingPreview />
+      <FinalCta />
     </ErrorBoundary>
   );
 }
