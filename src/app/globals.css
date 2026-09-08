@@ -99,6 +99,13 @@ body {
   }
 }
 
+@media print {
+  body { background: white !important; color: #111 !important; }
+  .print\:hidden { display: none !important; }
+  a { color: #111 !important; text-decoration: underline !important; }
+  * { border-color: #ccc !important; }
+}
+
 ::selection {
   background: var(--color-accent);
   color: var(--color-void);
