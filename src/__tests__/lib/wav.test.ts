@@ -34,6 +34,19 @@ describe('decodeWav', () => {
     expect(() => decodeWav(wavBytes({ pcm: [1, 2, 3] }))).toThrow();
   });
 
+  // The TTS provider streams audio, so it cannot know the length up front and writes
+  // placeholder sizes. Verify against a real capture: RIFF and data both 0xFFFFFFFF.
+  it.each([
+    ['riff and data', { riffSize: 0xffffffff, dataSize: 0xffffffff }],
+    ['riff only', { riffSize: 0xffffffff }],
+    ['data only', { dataSize: 0xffffffff }],
+  ])('accepts a streamed header whose %s size is unknown', (_label, options) => {
+    const { sampleRate, pcm } = decodeWav(wavBytes({ ...options, pcm: [1, 2, 3, 4] } as WavOptions));
+
+    expect(sampleRate).toBe(44100);
+    expect(Array.from(pcm)).toEqual([1, 2, 3, 4]);
+  });
+
   it.each([
     ['carries more than one channel', { channels: 2, blockAlign: 2, pcm: 16 }],
     ['declares a non-PCM format code', { formatCode: 3, bitsPerSample: 32, blockAlign: 4, pcm: 16 }],

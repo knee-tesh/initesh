@@ -26,11 +26,15 @@ export function decodeWav(bytes: Uint8Array): WavAudio {
     throw new Error('Unexpected audio format');
   }
 
+  // Streamed WAV (the TTS provider) cannot know the length up front and writes a placeholder
+  // size in the RIFF and data chunks. Ignore those and trust the received byte count.
+  const unknownSize = (declared: number, actual: number) => declared === 0xffffffff || declared === actual;
+
   if (
     pcm.byteLength === 0 ||
     pcm.byteLength % PCM_SAMPLE_BYTES !== 0 ||
-    view.getUint32(40, true) !== pcm.byteLength ||
-    view.getUint32(4, true) !== 36 + pcm.byteLength
+    !unknownSize(view.getUint32(40, true), pcm.byteLength) ||
+    !unknownSize(view.getUint32(4, true), 36 + pcm.byteLength)
   ) {
     throw new Error('Unexpected audio size');
   }
