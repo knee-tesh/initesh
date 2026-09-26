@@ -21,6 +21,21 @@ describe('parseSseChunk', () => {
     expect(second).toEqual(['lo', ' world']);
   });
 
+  it('parses CRLF frame delimiters', () => {
+    const state = createSseState();
+    const out = parseSseChunk(state, 'data: {"choices":[{"delta":{"content":"CRLF"}}]}\r\n\r\n');
+    expect(out).toEqual(['CRLF']);
+  });
+
+  it('joins multi-line data fields before parsing JSON', () => {
+    const state = createSseState();
+    const out = parseSseChunk(
+      state,
+      'data: {"choices":[{"delta":{"content":\ndata: "multi"}}]}\n\n',
+    );
+    expect(out).toEqual(['multi']);
+  });
+
   it('ignores garbage JSON frames instead of throwing', () => {
     const state = createSseState();
     const out = parseSseChunk(state, 'data: not-json\n\n');

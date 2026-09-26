@@ -36,11 +36,17 @@ export async function POST(request: NextRequest) {
     let controller: ReadableStreamDefaultController<Uint8Array> | null = null;
     let started = false;
     let finished = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     const finish = () => {
       if (finished) return;
       finished = true;
+      clearTimeout(timer);
       try { ws.close(); } catch {}
+      if (!started) {
+        resolve(NextResponse.json({ error: 'AI service error' }, { status: 502 }));
+        return;
+      }
       if (controller) {
         try { controller.close(); } catch {}
         controller = null;
@@ -83,11 +89,8 @@ export async function POST(request: NextRequest) {
       finish();
     };
     ws.onclose = () => {
-      if (!started) {
-        resolve(NextResponse.json({ error: 'AI service error' }, { status: 502 }));
-      }
       finish();
     };
-    setTimeout(finish, 60000);
+    timer = setTimeout(finish, 60000);
   });
 }

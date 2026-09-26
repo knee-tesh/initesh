@@ -1,8 +1,37 @@
+import { decodeWav, type WavAudio } from '@/lib/wav';
+
+const CACHE_LIMIT = 20;
+
+export type NarrationState = 'idle' | 'loading' | 'playing' | 'paused' | 'error' | 'unavailable';
+
+export type NarrationSnapshot = {
+  state: NarrationState;
+  position: number;
+  duration: number;
+  source: string;
+};
+
+export type NarrationOptions = {
+  onEnd?: () => void;
+  source?: string;
+};
+
+type Listener = (snapshot: NarrationSnapshot) => void;
+
+const audioCache = new Map<string, WavAudio>();
+const listeners = new Set<Listener>();
 let audioCtx: AudioContext | null = null;
-let activeSources: AudioBufferSourceNode[] = [];
-let released = 0;
+let source: AudioBufferSourceNode | null = null;
+let buffer: AudioBuffer | null = null;
+let state: NarrationState = 'idle';
+let currentSource = '';
+let offset = 0;
+let startedAt = 0;
+let generation = 0;
+let requestGeneration = 0;
+let pendingOnEnd: (() => void) | undefined;
 let ttsUnavailable = false;
-const ttsCache = new Map<string, { sampleRate: number; pcm: Uint8Array }>();
+let frameId: number | null = null;
 
 function getCtx(): AudioContext {
   audioCtx ??= new AudioContext();
@@ -10,96 +39,228 @@ function getCtx(): AudioContext {
   return audioCtx;
 }
 
+function toBuffer(audio: WavAudio): AudioBuffer {
+  const frames = Math.floor(audio.pcm.byteLength / 2);
+  const created = getCtx().createBuffer(1, frames, audio.sampleRate);
+  const samples = new Float32Array(frames);
+  for (let i = 0; i < frames; i++) {
+    const value = audio.pcm[i * 2] | (audio.pcm[i * 2 + 1] << 8);
+    samples[i] = value >= 32768 ? (value - 65536) / 32768 : value / 32768;
+  }
+  created.copyToChannel(samples, 0);
+  return created;
+}
+
+function position(): number {
+  if (state !== 'playing') return offset;
+  const elapsed = getCtx().currentTime - startedAt;
+  return Math.min(Math.max(offset + elapsed, 0), buffer?.duration ?? 0);
+}
+
+function snapshot(nextState = state): NarrationSnapshot {
+  return {
+    state: nextState,
+    position: nextState === 'playing' ? position() : offset,
+    duration: buffer?.duration ?? 0,
+    source: currentSource,
+  };
+}
+
+function publish(nextState = state): void {
+  const value = snapshot(nextState);
+  for (const listener of listeners) listener(value);
+}
+
+function stopFrame(): void {
+  if (frameId !== null && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(frameId);
+  frameId = null;
+}
+
+function scheduleFrame(gen: number): void {
+  if (typeof requestAnimationFrame !== 'function') return;
+  const tick = () => {
+    if (gen !== generation || state !== 'playing') {
+      frameId = null;
+      return;
+    }
+    publish();
+    frameId = requestAnimationFrame(tick);
+  };
+  frameId = requestAnimationFrame(tick);
+}
+
+function releaseSource(): void {
+  if (!source) return;
+  try { source.stop(); } catch {}
+  source = null;
+}
+
+function startSource(from: number): void {
+  if (!buffer) return;
+  const ctx = getCtx();
+  releaseSource();
+  stopFrame();
+  const gen = ++generation;
+  const next = ctx.createBufferSource();
+  next.buffer = buffer;
+  next.connect(ctx.destination);
+  source = next;
+  offset = from;
+  startedAt = ctx.currentTime;
+  state = 'playing';
+  publish();
+  scheduleFrame(gen);
+  next.onended = () => {
+    if (gen !== generation) return;
+    stopFrame();
+    source = null;
+    buffer = null;
+    offset = 0;
+    state = 'idle';
+    publish();
+    const done = pendingOnEnd;
+    pendingOnEnd = undefined;
+    done?.();
+  };
+  next.start(0, from);
+}
+
 export function supportTts(): boolean {
   return !ttsUnavailable;
 }
 
+export function resetTtsAvailability(): void {
+  ttsUnavailable = false;
+}
+
+export function subscribeNarration(listener: Listener): () => void {
+  listeners.add(listener);
+  listener(snapshot());
+  return () => listeners.delete(listener);
+}
+
 export function stopSpeaking(): void {
-  released++;
-  for (const s of activeSources) { try { s.stop(); } catch {} }
-  activeSources = [];
+  generation++;
+  requestGeneration++;
+  stopFrame();
+  releaseSource();
+  buffer = null;
+  offset = 0;
+  state = 'idle';
+  pendingOnEnd = undefined;
+  publish();
 }
 
-async function playPcm(pcm: Uint8Array, sampleRate: number, onEnd?: () => void): Promise<void> {
+function publishLoadError(gen: number, nextState: 'error' | 'unavailable'): void {
+  if (gen !== requestGeneration) return;
+  state = nextState;
+  publish();
+}
+
+async function loadFor(text: string, nextSource = ''): Promise<number> {
   stopSpeaking();
-  const ctx = getCtx();
-  const frames = Math.floor(pcm.byteLength / 2);
-  const buffer = ctx.createBuffer(1, frames, sampleRate);
-  const data = new Float32Array(frames);
-  for (let i = 0; i < frames; i++) {
-    const v = pcm[i * 2] | (pcm[i * 2 + 1] << 8);
-    data[i] = v >= 32768 ? (v - 65536) / 32768 : v / 32768;
-  }
-  buffer.copyToChannel(data, 0);
-  const src = ctx.createBufferSource();
-  src.buffer = buffer;
-  src.connect(ctx.destination);
-  const gen = released;
-  activeSources = [src];
-  src.onended = () => {
-    activeSources = [];
-    if (gen === released) onEnd?.();
-  };
-  src.start();
-}
-
-export async function speak(text: string, opts?: { onEnd?: () => void }): Promise<void> {
-  if (ttsUnavailable) throw new Error('TTS unavailable');
-  const cached = ttsCache.get(text);
-  if (cached) {
-    await playPcm(cached.pcm, cached.sampleRate, opts?.onEnd);
-    return;
-  }
-
-  const res = await fetch('/api/tts', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  });
-  if (res.status === 501) {
-    ttsUnavailable = true; // latch: only 501 (missing key) hides speak buttons
+  currentSource = nextSource;
+  state = 'loading';
+  publish();
+  const gen = requestGeneration;
+  if (ttsUnavailable) {
+    publishLoadError(gen, 'unavailable');
     throw new Error('TTS unavailable');
   }
-  if (!res.ok || !res.body) throw new Error('TTS failed');
-
-  const reader = res.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let sampleRate = 44100;
-  let headerParsed = false;
-  let pending: Uint8Array | null = null;
-
-  for (;;) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    let u8 = new Uint8Array(value!);
-    if (!headerParsed) {
-      // first chunk carries the 44-byte RIFF header; sample rate at offset 24
-      sampleRate = new DataView(u8.buffer, u8.byteOffset, 44).getUint32(24, true);
-      u8 = u8.subarray(44);
-      headerParsed = true;
+  const cached = audioCache.get(text);
+  if (cached) {
+    if (gen === requestGeneration) {
+      buffer = toBuffer(cached);
+      state = 'idle';
+      publish();
     }
-    if (pending) {
-      const merged = new Uint8Array(pending.length + u8.length);
-      merged.set(pending);
-      merged.set(u8, pending.length);
-      u8 = merged;
-      pending = null;
-    }
-    const cut = u8.byteLength - (u8.byteLength % 2); // keep Int16 alignment across chunks
-    if (cut < u8.byteLength) pending = u8.slice(cut);
-    if (cut > 0) chunks.push(u8.slice(0, cut));
-  }
-  if (pending && pending.length >= 2) {
-    chunks.push(pending.subarray(0, pending.length - (pending.length % 2)));
+    return gen;
   }
 
-  const total = chunks.reduce((n, c) => n + c.length, 0);
-  const pcm = new Uint8Array(total);
-  let off = 0;
-  for (const c of chunks) { pcm.set(c, off); off += c.length; }
+  try {
+    const res = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+    if (res.status === 501) {
+      ttsUnavailable = true;
+      publishLoadError(gen, 'unavailable');
+      throw new Error('TTS unavailable');
+    }
+    if (!res.ok) {
+      publishLoadError(gen, 'error');
+      throw new Error('TTS failed');
+    }
 
-  if (ttsCache.size >= 20) ttsCache.delete(ttsCache.keys().next().value!);
-  ttsCache.set(text, { sampleRate, pcm });
+    const audio = decodeWav(new Uint8Array(await res.arrayBuffer()));
+    if (audioCache.size >= CACHE_LIMIT) audioCache.delete(audioCache.keys().next().value!);
+    audioCache.set(text, audio);
+    if (gen === requestGeneration) {
+      buffer = toBuffer(audio);
+      state = 'idle';
+      publish();
+    }
+    return gen;
+  } catch (error) {
+    if (gen === requestGeneration && state === 'loading') publishLoadError(gen, 'error');
+    throw error;
+  }
+}
 
-  await playPcm(pcm, sampleRate, opts?.onEnd);
+export async function loadNarration(text: string, source?: string): Promise<void> {
+  await loadFor(text, source);
+}
+
+export function playNarration(opts?: NarrationOptions): void {
+  if (opts?.source !== undefined) currentSource = opts.source;
+  requestGeneration++;
+  if (opts?.onEnd) pendingOnEnd = opts.onEnd;
+  if (!buffer) {
+    state = 'idle';
+    publish();
+    return;
+  }
+  startSource(position());
+}
+
+export function pauseNarration(): NarrationState {
+  if (state !== 'playing' || !buffer) return state;
+  const at = position();
+  generation++;
+  stopFrame();
+  releaseSource();
+  offset = at;
+  state = 'paused';
+  publish();
+  return state;
+}
+
+export function resumeNarration(): NarrationState {
+  if (state !== 'paused' || !buffer) return state;
+  startSource(offset);
+  return state;
+}
+
+export function seekNarration(deltaSeconds: number): void {
+  if (!buffer) return;
+  const target = Math.min(Math.max(position() + deltaSeconds, 0), buffer.duration);
+  if (target >= buffer.duration) {
+    stopSpeaking();
+  } else if (state === 'playing') {
+    startSource(target);
+  } else {
+    offset = target;
+    publish();
+  }
+}
+
+export function getNarrationState(): { state: NarrationState; position: number; duration: number } {
+  return { state, position: position(), duration: buffer?.duration ?? 0 };
+}
+
+export async function speak(text: string, opts?: NarrationOptions): Promise<void> {
+  const gen = await loadFor(text, opts?.source);
+  if (gen !== requestGeneration) return;
+  playNarration(opts);
 }
