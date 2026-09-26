@@ -6,18 +6,23 @@ export function createSseState(): SseState {
 
 export function parseSseChunk(state: SseState, chunk: string): string[] {
   state.buffer += chunk;
-  const frames = state.buffer.split('\n\n');
+  const frames = state.buffer.split(/\r?\n\r?\n/);
   state.buffer = frames.pop() ?? '';
   const deltas: string[] = [];
   for (const raw of frames) {
-    const line = raw.trim();
-    if (!line.startsWith('data:')) continue;
-    const payload = line.slice(5).trim();
-    if (!payload || payload === '[DONE]') continue;
+    const data = raw
+      .split(/\r?\n/)
+      .filter((line) => line.startsWith('data:'))
+      .map((line) => line.slice(5).trim())
+      .join('\n')
+      .trim();
+    if (!data || data === '[DONE]') continue;
     try {
-      const delta = JSON.parse(payload)?.choices?.[0]?.delta?.content;
+      const delta = JSON.parse(data)?.choices?.[0]?.delta?.content;
       if (typeof delta === 'string' && delta) deltas.push(delta);
-    } catch { /* ignore malformed frame */ }
+    } catch {
+      continue;
+    }
   }
   return deltas;
 }

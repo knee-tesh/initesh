@@ -1,1 +1,1 @@
-export const baseUrl = "https://nitesh.vercel.app/";
+export const baseUrl = "https://nitesh.in";
